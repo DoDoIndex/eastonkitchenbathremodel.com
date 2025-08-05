@@ -1,0 +1,79 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: var(--font-noto-sans), system-ui, sans-serif;
+  }
+
+  /* Set default font for all elements */
+  * {
+    @apply font-sans;
+  }
+
+  /* Override for headings that should use serif */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif;
+  }
+
+  /* Override for specific elements that should use serif */
+  .font-serif {
+    font-family: var(--font-noto-serif), serif;
+  }
+}
+
+body {
+  @apply bg-neutral-50 text-neutral-900;
+}
+
+/* Custom Lightbox Thumbnail Styles */
+.custom-lightbox .yarl__thumbnails_thumbnail {
+  transition: opacity 0.2s ease-in-out !important;
+  width: 120px !important;
+  height: 80px !important;
+  opacity: 0.6 !important;
+}
+
+.custom-lightbox .yarl__thumbnails_thumbnail.yarl__thumbnails_thumbnail_active {
+  width: 120px !important;
+  height: 80px !important;
+  opacity: 1 !important;
+  border: 2px solid #fff !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3) !important;
+}
+
+/* Before/After Slider Handle with Arrows */
+.before-after-container div[style*="border-radius: 50%"]::before,
+.before-after-container div[style*="width: 50px"]::before,
+.before-after-container div[style*="background-color: white"]::before,
+.before-after-container div[style*="backgroundColor: white"]::before {
+  content: "◀ ▶" !important;
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 2px !important;
+  font-size: 12px !important;
+  color: #666 !important;
+  font-weight: bold !important;
+  pointer-events: none !important;
+  z-index: 999999 !important;
+  line-height: 1 !important;
+  white-space: nowrap !important;
+}
+
+/* Fix vertical centering of the slider handle itself - avoid transform conflict */
+.before-after-container div[style*="border-radius: 50%"],
+.before-after-container div[style*="width: 50px"][style*="height: 50px"] {
+  top: 45% !important;
+  cursor: grab !important;
+}
+
+.before-after-container div[style*="border-radius: 50%"]:active,
+.before-after-container div[style*="width: 50px"][style*="height: 50px"]:active {
+  cursor: grabbing !important;
+}
