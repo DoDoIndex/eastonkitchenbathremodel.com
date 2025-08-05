@@ -1,11 +1,12 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
 import Lightbox from 'yet-another-react-lightbox';
 import { Thumbnails } from 'yet-another-react-lightbox/plugins';
 import ReactBeforeSliderComponent from 'react-before-after-slider-component';
+import ReCAPTCHA from 'react-google-recaptcha';
 import 'react-before-after-slider-component/dist/build.css';
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -35,6 +36,14 @@ export function HomeContent() {
   const [lightboxIndex, setLightboxIndex] = useState(0);
   const [lightboxImages, setLightboxImages] = useState<string[]>([]);
   const [beforeAfterIndex, setBeforeAfterIndex] = useState(0);
+  const [quoteModalOpen, setQuoteModalOpen] = useState(false);
+  const [quoteForm, setQuoteForm] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    project: ''
+  });
+  const recaptchaRef = useRef<ReCAPTCHA>(null);
 
   // Hardcoded shuffled photos array
   const shuffledPhotos = [
@@ -95,6 +104,51 @@ export function HomeContent() {
     setLightboxOpen(true);
   };
 
+  const handleQuoteSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    // Get reCAPTCHA token
+    const recaptchaToken = recaptchaRef.current?.getValue();
+    if (!recaptchaToken) {
+      alert('Please complete the reCAPTCHA verification.');
+      return;
+    }
+
+    try {
+      // Submit form with reCAPTCHA token
+      const response = await fetch('/api/submit-quote', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...quoteForm,
+          recaptchaToken
+        }),
+      });
+
+      if (response.ok) {
+        // Reset form and close modal
+        setQuoteForm({ name: '', email: '', phone: '', project: '' });
+        recaptchaRef.current?.reset();
+        setQuoteModalOpen(false);
+        alert('Thank you! We will contact you soon.');
+      } else {
+        alert('There was an error submitting your request. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      alert('There was an error submitting your request. Please try again.');
+    }
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    setQuoteForm({
+      ...quoteForm,
+      [e.target.name]: e.target.value
+    });
+  };
+
   return (
     <main className="min-h-screen" role="main">
       {/* Sticky Navbar */}
@@ -142,7 +196,10 @@ export function HomeContent() {
                 My team specializes in <span className="text-white">kitchen and bathroom transformations</span> with over <span className="text-white">20 years</span> of professional experience. <span className="text-white">CSLB #1121194</span>
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-                <button className="bg-white text-black text-xl px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+                <button 
+                  onClick={() => setQuoteModalOpen(true)}
+                  className="bg-white text-black text-xl px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
+                >
                   Get Free Quote
                 </button>
                 <button 
@@ -289,15 +346,15 @@ export function HomeContent() {
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
               My Team
             </h2>
-                          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                We are <span className="text-gray-900 font-medium">fully licensed</span>, reliable, and always ready to deliver great work.
+              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                We are <span className="text-gray-900 font-medium">fully licensed</span>, reliable, and not afraid to get our hands dirty to deliver quality work you can count on.
               </p>
           </div>
 
           <div className="w-full">
             <div className="bg-gray-200 overflow-hidden rounded-xl">
               <img 
-                src="/construction-team.jpg" 
+                src="/travis-and-team.jpg" 
                 alt="Travis and his team"
                 className="w-full h-auto"
                 onError={(e) => {
@@ -448,7 +505,10 @@ export function HomeContent() {
             >
               (657) 888-0026
             </a>
-            <button className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-black transition-colors">
+            <button 
+              onClick={() => setQuoteModalOpen(true)}
+              className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-black transition-colors"
+            >
               Request Quote
             </button>
           </div>
@@ -481,6 +541,121 @@ export function HomeContent() {
         }}
         className="custom-lightbox"
       />
+
+      {/* Quote Modal */}
+      {quoteModalOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-xl max-w-md w-full max-h-[90vh] overflow-y-auto">
+            <div className="p-6">
+              <div className="flex justify-between items-center mb-6">
+                <h3 className="text-2xl font-bold text-gray-900">Quote Form</h3>
+                <button
+                  onClick={() => setQuoteModalOpen(false)}
+                  className="text-gray-500 hover:text-gray-700 text-2xl"
+                  aria-label="Close modal"
+                >
+                  ×
+                </button>
+              </div>
+
+              <form onSubmit={handleQuoteSubmit} className="space-y-4">
+                <div>
+                  <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
+                    Full Name <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    value={quoteForm.name}
+                    onChange={handleInputChange}
+                    required
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    placeholder="Enter your full name"
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+                    Email Address <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={quoteForm.email}
+                    onChange={handleInputChange}
+                    required
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    placeholder="Enter your email address"
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
+                    Phone Number <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    value={quoteForm.phone}
+                    onChange={handleInputChange}
+                    required
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    placeholder="Enter your phone number"
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="project" className="block text-sm font-medium text-gray-700 mb-2">
+                    Project Interest <span className="text-red-500">*</span>
+                  </label>
+                  <select
+                    id="project"
+                    name="project"
+                    value={quoteForm.project}
+                    onChange={handleInputChange}
+                    required
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  >
+                    <option value="">Select a project type</option>
+                    <option value="Kitchen">Kitchen Remodeling</option>
+                    <option value="Bathroom">Bathroom Remodeling</option>
+                    <option value="Kitchen & Bath">Kitchen & Bathroom</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+
+                {/* reCAPTCHA */}
+                <div className="py-4">
+                  <ReCAPTCHA
+                    ref={recaptchaRef}
+                    sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
+                    theme="light"
+                  />
+                </div>
+
+                <div className="flex gap-3 pt-4">
+                  <button
+                    type="button"
+                    onClick={() => setQuoteModalOpen(false)}
+                    className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-semibold"
+                  >
+                    Submit Request
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      )}
     </main>
   );
 }
