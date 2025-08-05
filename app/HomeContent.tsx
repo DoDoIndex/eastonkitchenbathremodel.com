@@ -193,7 +193,7 @@ export function HomeContent() {
                 <span className="text-green-500 ml-2">Anaheim Hills</span>
               </h1>
               <p className="text-lg md:text-xl mb-8 text-gray-400 max-w-xl">
-                My team specializes in <span className="text-white">kitchen and bathroom transformations</span> with over <span className="text-white">20 years</span> of professional experience. <span className="text-white">CSLB #1121194</span>
+                My team specializes in <span className="text-white">kitchen &amp; bathroom remodeling</span> with over <span className="text-white">20 years</span> of professional experience. <span className="text-white">CSLB #1121194</span>
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
                 <button 
