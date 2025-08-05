@@ -4,7 +4,7 @@ import type { Metadata } from 'next';
 export const revalidate = 3600; // Revalidate every hour
 
 export const metadata: Metadata = {
-  title: 'Anaheim Hills Contractor - Kitchen & Bathroom Remodeling | Travis - Licensed CSLB 1121194',
+  title: 'Anaheim Hills Contractor - Kitchen & Bathroom Remodeling | Travis Easton - Licensed CSLB 1121194',
   description: 'Expert kitchen and bathroom remodeling in Anaheim Hills & Orange County. Licensed contractor Travis delivers stunning transformations with 20+ years experience. Real photos, quality craftsmanship. Call (657) 888-0026',
   keywords: [
     'Anaheim Hills contractor',
