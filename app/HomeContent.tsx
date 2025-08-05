@@ -96,7 +96,7 @@ export function HomeContent() {
   };
 
   return (
-    <div className="min-h-screen">
+    <main className="min-h-screen" role="main">
       {/* Sticky Navbar */}
       <nav className="fixed top-0 left-0 right-0 bg-black/90 backdrop-blur-md border-b border-gray-800 shadow-lg z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -125,27 +125,37 @@ export function HomeContent() {
       </nav>
 
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-gray-900 via-black to-gray-800 text-white pt-16 sm:pt-20 lg:pt-24">
+      <header className="relative bg-gradient-to-br from-gray-900 via-black to-gray-800 text-white pt-16 sm:pt-20 lg:pt-24" role="banner">
         <div className="absolute inset-0 bg-black/20"></div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
           <div className="flex flex-col md:flex-row items-center gap-4 md:gap-12 h-full">
             {/* Text Content */}
             <div className="flex-1 text-center md:text-left flex flex-col h-full pt-12 pb-0 md:py-24">
-              <h1 className="text-4xl md:text-6xl font-bold mb-6">
+              <p className="text-4xl md:text-6xl font-bold mb-6 font-serif">
                 Hi, I'm Travis
-              </h1>
-              <p className="text-xl md:text-3xl mb-6 md:mb-8 max-w-lg">
+              </p>
+              <h1 className="text-xl md:text-3xl mb-6 md:mb-8 max-w-lg font-sans">
                 Your trusted local general contractor in 
                 <span className="text-green-500 ml-2">Anaheim Hills</span>
-              </p>
+              </h1>
               <p className="text-lg md:text-xl mb-8 text-gray-400 max-w-xl">
-                My team specialize in <span className="text-white">kitchen and bathroom remodeling</span>, with over <span className="text-white">20 years</span> of professional experience.
+                Specializing in <span className="text-white">kitchen and bathroom transformations</span> with over <span className="text-white">20 years</span> of professional experience. <span className="text-white">CSLB #1121194</span>
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
                 <button className="bg-white text-black text-xl px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
                   Get Free Quote
                 </button>
-                <button className="border-2 border-white text-xl text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-black transition-colors">
+                <button 
+                  onClick={() => {
+                    const element = document.getElementById('services');
+                    if (element) {
+                      const navbarHeight = 80; // Account for navbar height
+                      const elementPosition = element.offsetTop - navbarHeight;
+                      window.scrollTo({ top: elementPosition, behavior: 'smooth' });
+                    }
+                  }}
+                  className="border-2 border-white text-xl text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-black transition-colors"
+                >
                   View Services
                 </button>
               </div>
@@ -156,20 +166,23 @@ export function HomeContent() {
               <div className="w-full h-full overflow-hidden pt-6">
                 <img 
                   src="/contractor.webp" 
-                  alt="Travis - Anaheim Hills Contractor" 
+                  alt="Travis - Licensed General Contractor specializing in kitchen and bathroom remodeling in Anaheim Hills, Orange County. CSLB License 1121194" 
                   className="w-full h-full object-cover object-bottom"
+                  loading="eager"
+                  width="400"
+                  height="600"
                 />
               </div>
             </div>
           </div>
         </div>
-      </section>
+      </header>
 
       {/* Services Section */}
-      <section className="py-16 bg-gray-50">
+      <section id="services" className="py-16 bg-gray-50" aria-labelledby="services-heading">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            <h2 id="services-heading" className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
               Specialties
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
@@ -306,10 +319,10 @@ export function HomeContent() {
       </section>
 
       {/* Before and After Section */}
-      <section className="py-16 bg-gray-50">
+      <section id="transformations" className="py-16 bg-gray-50" aria-labelledby="transformations-heading">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            <h2 id="transformations-heading" className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
               Transformations
             </h2>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto">
@@ -361,10 +374,10 @@ export function HomeContent() {
       </section>
 
       {/* More Photos Section */}
-      <section className="py-16 bg-white">
+      <section id="gallery" className="py-16 bg-white" aria-labelledby="gallery-heading">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            <h2 id="gallery-heading" className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
               More Photos
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
@@ -403,9 +416,9 @@ export function HomeContent() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-black text-white">
+      <section id="contact" className="py-16 bg-black text-white" aria-labelledby="contact-heading">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+          <h2 id="contact-heading" className="text-3xl md:text-4xl font-bold mb-4">
             Ready to Transform Your Home?
           </h2>
           <p className="text-xl mb-8">
@@ -425,9 +438,13 @@ export function HomeContent() {
           </div>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="bg-white text-black px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+            <a 
+              href="tel:6578880026" 
+              className="bg-white text-black px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors inline-block"
+              aria-label="Call Travis at (657) 888-0026"
+            >
               (657) 888-0026
-            </button>
+            </a>
             <button className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-black transition-colors">
               Request Quote
             </button>
@@ -461,6 +478,6 @@ export function HomeContent() {
         }}
         className="custom-lightbox"
       />
-    </div>
+    </main>
   );
 }
