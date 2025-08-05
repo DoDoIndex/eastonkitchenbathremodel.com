@@ -103,10 +103,10 @@ export function HomeContent() {
           <div className="flex justify-between items-center h-16 sm:h-20 lg:h-24">
             {/* Logo */}
             <div className="flex flex-col">
-              <div className="text-lg sm:text-xl lg:text-3xl font-bold text-white tracking-tight font-serif">
+              <div className="text-md sm:text-xl lg:text-3xl font-bold text-white tracking-tight font-serif">
                 Anaheim Hills Contractor
               </div>
-              <div className="text-xs sm:text-sm lg:text-lg text-gray-300 italic font-medium tracking-wide font-serif">
+              <div className="text-[11px] sm:text-sm lg:text-lg text-gray-300 italic font-medium tracking-wide font-sans">
                 by Easton Designs and Consulting
               </div>
             </div>
