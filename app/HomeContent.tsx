@@ -139,7 +139,7 @@ export function HomeContent() {
                 <span className="text-green-500 ml-2">Anaheim Hills</span>
               </h1>
               <p className="text-lg md:text-xl mb-8 text-gray-400 max-w-xl">
-                Specializing in <span className="text-white">kitchen and bathroom transformations</span> with over <span className="text-white">20 years</span> of professional experience. <span className="text-white">CSLB #1121194</span>
+                My team specializes in <span className="text-white">kitchen and bathroom transformations</span> with over <span className="text-white">20 years</span> of professional experience. <span className="text-white">CSLB #1121194</span>
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
                 <button className="bg-white text-black text-xl px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
@@ -149,7 +149,10 @@ export function HomeContent() {
                   onClick={() => {
                     const element = document.getElementById('services');
                     if (element) {
-                      const navbarHeight = 80; // Account for navbar height
+                      // Responsive navbar height: 64px on mobile, 80px on tablet, 96px on desktop
+                      const isMobile = window.innerWidth < 640;
+                      const isTablet = window.innerWidth >= 640 && window.innerWidth < 1024;
+                      const navbarHeight = isMobile ? 64 : isTablet ? 80 : 96;
                       const elementPosition = element.offsetTop - navbarHeight;
                       window.scrollTo({ top: elementPosition, behavior: 'smooth' });
                     }
