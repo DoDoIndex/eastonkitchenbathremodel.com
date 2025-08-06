@@ -398,7 +398,7 @@ export function HomeContent() {
 
       {/* My Team Section */}
       <section className="py-16 bg-white">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
               My Team
@@ -409,29 +409,70 @@ export function HomeContent() {
           </div>
 
           <div className="w-full">
-            <div className="bg-gray-200 overflow-hidden rounded-xl">
-              <Image 
-                src="/travis-and-team.jpg" 
-                alt="Travis and his team"
-                className="w-full h-auto"
-                width={960}
-                height={640}
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
-                onError={(e) => {
-                  const target = e.currentTarget as HTMLImageElement;
-                  target.style.display = 'none';
-                  const nextElement = target.nextElementSibling as HTMLElement;
-                  if (nextElement) {
-                    nextElement.style.display = 'flex';
-                  }
-                }}
-              />
-              <div className="w-full h-96 bg-gray-300 flex items-center justify-center" style={{display: 'none'}}>
-                <div className="text-center text-gray-500">
-                  <div className="text-8xl mb-4">👥</div>
-                  <p className="text-xl">Team Photo</p>
-                  <p className="text-sm">(Add team photo here)</p>
-                </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:hidden">
+              <div className="bg-gray-200 overflow-hidden rounded-xl">
+                <Image 
+                  src="/bathroom-team.jpg" 
+                  alt="Bathroom remodeling team at work"
+                  className="w-full h-auto"
+                  width={400}
+                  height={300}
+                  sizes="50vw"
+                />
+              </div>
+              <div className="bg-gray-200 overflow-hidden rounded-xl">
+                <Image 
+                  src="/outdoor-team.jpg" 
+                  alt="Outdoor construction team"
+                  className="w-full h-auto"
+                  width={400}
+                  height={300}
+                  sizes="50vw"
+                />
+              </div>
+              <div className="bg-gray-200 overflow-hidden rounded-xl">
+                <Image 
+                  src="/kitchen-team.jpg" 
+                  alt="Kitchen remodeling team at work"
+                  className="w-full h-auto"
+                  width={400}
+                  height={600}
+                  sizes="50vw"
+                />
+              </div>
+            </div>
+
+            {/* Desktop Layout: All three images in a row */}
+            <div className="hidden md:grid md:grid-cols-3 gap-6">
+              <div className="bg-gray-200 overflow-hidden rounded-xl">
+                <Image 
+                  src="/bathroom-team.jpg" 
+                  alt="Bathroom remodeling team at work"
+                  className="w-full h-auto"
+                  width={400}
+                  height={300}
+                  sizes="33vw"
+                />
+              </div>
+              <div className="bg-gray-200 overflow-hidden rounded-xl">
+                <Image 
+                  src="/kitchen-team.jpg" 
+                  alt="Kitchen remodeling team at work"
+                  className="w-full h-auto"
+                  width={400}
+                  height={300}
+                  sizes="33vw"
+                />
+              </div>
+              <div className="bg-gray-200 overflow-hidden rounded-xl">
+                <Image 
+                  src="/outdoor-team.jpg" 
+                  alt="Outdoor construction team"
+                  className="w-full h-auto"
+                  width={400}
+                  height={300}
+                  sizes="33vw"
+                />
               </div>
             </div>
           </div>
