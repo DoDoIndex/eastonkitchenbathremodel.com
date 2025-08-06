@@ -348,6 +348,7 @@ export function HomeContent() {
                   {/* Custom Navigation Buttons */}
                   <button
                     className={`swiper-button-prev-${index} absolute left-2 top-1/2 transform -translate-y-1/2 text-white p-2 hover:text-gray-300 transition-colors z-10`}
+                    aria-label="Previous image"
                   >
                     <svg className="w-8 h-8 filter drop-shadow-[0_1px_2px_rgba(0,0,0,0.4)]" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
@@ -356,6 +357,7 @@ export function HomeContent() {
                   
                   <button
                     className={`swiper-button-next-${index} absolute right-2 top-1/2 transform -translate-y-1/2 text-white p-2 hover:text-gray-300 transition-colors z-10`}
+                    aria-label="Next image"
                   >
                     <svg className="w-8 h-8 filter drop-shadow-[0_1px_2px_rgba(0,0,0,0.4)]" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
