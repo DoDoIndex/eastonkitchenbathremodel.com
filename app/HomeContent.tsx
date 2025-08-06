@@ -240,7 +240,7 @@ export function HomeContent() {
               </p>
               <h1 className="text-xl md:text-3xl mb-6 md:mb-8 max-w-lg font-sans">
                 Your trusted local general contractor in 
-                <span className="text-blue-400 ml-2">Anaheim Hills</span>
+                <span className="text-blue-500 ml-2">Anaheim Hills</span>
               </h1>
               <p className="text-lg md:text-xl mb-8 text-gray-400 max-w-xl">
                 My team specializes in <span className="text-white">kitchen &amp; bathroom remodeling</span> with over <span className="text-white">20 years</span> of professional experience. <span className="text-white inline-block">CSLB #1121194</span>
@@ -298,7 +298,7 @@ export function HomeContent() {
               Specialties
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Check out the two special services we offer. Yes, they're <span className="text-gray-900 font-medium">real photos</span> taken from projects we've done in Anaheim Hills or nearby Orange County areas.
+              Check out the two special services we offer. Yes, they're <span className="text-blue-600 font-medium">real photos</span> taken from projects we've done in Anaheim Hills or nearby Orange County areas.
             </p>
           </div>
 
@@ -404,7 +404,7 @@ export function HomeContent() {
               My Team
             </h2>
               <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                We are <span className="text-gray-900 font-medium">fully licensed</span>, reliable, and not afraid to get our hands dirty to deliver quality work you can count on.
+                We are <span className="text-blue-600 font-medium">fully licensed</span>, reliable, and not afraid to get our hands dirty to deliver quality work you can count on.
               </p>
           </div>
 
@@ -446,7 +446,7 @@ export function HomeContent() {
               Transformations
             </h2>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              See the <span className="text-gray-900 font-medium">Before & After</span> photos that show how we turn outdated bathrooms into stunning modern spaces, crafted with care and detail.
+              See the <span className="text-blue-600 font-medium">Before & After</span> photos that show how we turn outdated bathrooms into stunning modern spaces, crafted with care and detail.
             </p>
           </div>
 
@@ -501,7 +501,7 @@ export function HomeContent() {
               More Photos
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Let the <span className="text-gray-900 font-medium">results</span> speak for themselves with expert craftsmanship in every detail.
+              Let the <span className="text-blue-600 font-medium">results</span> speak for themselves with expert craftsmanship in every detail.
             </p>
           </div>
 
@@ -748,7 +748,7 @@ export function HomeContent() {
                       disabled={isSubmitting}
                       className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-semibold disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-blue-600"
                     >
-                      {isSubmitting ? 'Submitting...' : 'Submit Request'}
+                      {isSubmitting ? 'Submitting...' : 'Submit'}
                     </button>
                   </div>
                 </form>
