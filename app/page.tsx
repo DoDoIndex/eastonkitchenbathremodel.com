@@ -9,6 +9,7 @@ export const metadata: Metadata = {
   keywords: [
     'Anaheim Hills contractor',
     'kitchen remodeling Anaheim Hills',
+    'bathroom remodeling Anaheim Hills',
     'bathroom remodeling Orange County',
     'licensed contractor CSLB 1121194',
     'Travis contractor',
