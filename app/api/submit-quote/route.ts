@@ -85,7 +85,7 @@ export async function POST(request: NextRequest) {
         <p style="font-size: 16px;">Email: <strong style="background-color: #FFFFC5;">${email}</strong></p>
         <p style="font-size: 16px;">Phone: <strong style="background-color: #FFFFC5;">${phone}</strong></p>
         <p style="font-size: 16px;">Project Interest: <strong style="background-color: #FFFFC5;">${project}</strong></p>
-        <p><em>Submitted at ${new Date().toLocaleString()}</em></p>
+        <p><em>Submitted at ${new Date().toLocaleString('en-US', { timeZone: 'America/Los_Angeles' })}</em></p>
       `
     });
 
