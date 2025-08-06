@@ -8,6 +8,7 @@ import { Thumbnails } from 'yet-another-react-lightbox/plugins';
 import ReactBeforeSliderComponent from 'react-before-after-slider-component';
 import ReCAPTCHA from 'react-google-recaptcha';
 import toast from 'react-hot-toast';
+import Image from 'next/image';
 import 'react-before-after-slider-component/dist/build.css';
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -273,13 +274,15 @@ export function HomeContent() {
             {/* Photo */}
             <div className="flex-1 flex justify-center h-full">
               <div className="w-full h-full overflow-hidden pt-6">
-                <img 
+                <Image 
                   src="/contractor.webp" 
                   alt="Travis - Licensed General Contractor specializing in kitchen and bathroom remodeling in Anaheim Hills, Orange County. CSLB License 1121194" 
                   className="w-full h-full object-cover object-bottom"
                   loading="eager"
-                  width="400"
-                  height="600"
+                  width={400}
+                  height={600}
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  priority
                 />
               </div>
             </div>
@@ -321,11 +324,14 @@ export function HomeContent() {
                   >
                     {service.images.map((image, imgIndex) => (
                       <SwiperSlide key={imgIndex}>
-                        <img 
+                        <Image 
                           src={image} 
                           alt={`${service.title} - Image ${imgIndex + 1}`}
                           className="w-full h-full object-cover cursor-pointer"
                           onClick={() => openLightbox(service.images, imgIndex)}
+                          width={380}
+                          height={253}
+                          sizes="(max-width: 768px) 90vw, (max-width: 1200px) 45vw, 380px"
                           onError={(e) => {
                             const target = e.currentTarget as HTMLImageElement;
                             target.style.display = 'none';
@@ -392,7 +398,7 @@ export function HomeContent() {
 
       {/* My Team Section */}
       <section className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
               My Team
@@ -404,10 +410,13 @@ export function HomeContent() {
 
           <div className="w-full">
             <div className="bg-gray-200 overflow-hidden rounded-xl">
-              <img 
+              <Image 
                 src="/travis-and-team.jpg" 
                 alt="Travis and his team"
                 className="w-full h-auto"
+                width={380}
+                height={253}
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
                 onError={(e) => {
                   const target = e.currentTarget as HTMLImageElement;
                   target.style.display = 'none';
@@ -431,7 +440,7 @@ export function HomeContent() {
 
       {/* Before and After Section */}
       <section id="transformations" className="py-16 bg-gray-50" aria-labelledby="transformations-heading">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 id="transformations-heading" className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
               Transformations
@@ -504,10 +513,13 @@ export function HomeContent() {
                 className="relative aspect-[25/16] rounded-lg overflow-hidden shadow-lg cursor-pointer hover:shadow-xl transition-shadow duration-300"
                 onClick={() => openLightbox(shuffledPhotos.map(p => p.src), index)}
               >
-                <img
+                <Image
                   src={photo.src}
                   alt={`${photo.type} Remodeling Project`}
                   className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                  width={380}
+                  height={253}
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   onError={(e) => {
                     const target = e.currentTarget as HTMLImageElement;
                     const nextElement = target.nextElementSibling;
