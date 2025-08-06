@@ -60,7 +60,7 @@ body {
   background-position: center !important;
   background-size: contain !important;
   pointer-events: none !important;
-  z-index: 999999 !important;
+  z-index: 10 !important;
 }
 
 /* Fix vertical centering of the slider handle itself - avoid transform conflict */

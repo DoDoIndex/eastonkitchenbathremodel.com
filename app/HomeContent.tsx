@@ -7,6 +7,7 @@ import Lightbox from 'yet-another-react-lightbox';
 import { Thumbnails } from 'yet-another-react-lightbox/plugins';
 import ReactBeforeSliderComponent from 'react-before-after-slider-component';
 import ReCAPTCHA from 'react-google-recaptcha';
+import toast from 'react-hot-toast';
 import 'react-before-after-slider-component/dist/build.css';
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -43,6 +44,8 @@ export function HomeContent() {
     phone: '',
     project: ''
   });
+  const [formSubmitted, setFormSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const recaptchaRef = useRef<ReCAPTCHA>(null);
 
   // Hardcoded shuffled photos array
@@ -110,9 +113,11 @@ export function HomeContent() {
     // Get reCAPTCHA token
     const recaptchaToken = recaptchaRef.current?.getValue();
     if (!recaptchaToken) {
-      alert('Please complete the reCAPTCHA verification.');
+      toast.error('Please complete the reCAPTCHA.');
       return;
     }
+
+    setIsSubmitting(true);
 
     try {
       // Submit form with reCAPTCHA token
@@ -128,25 +133,57 @@ export function HomeContent() {
       });
 
       if (response.ok) {
-        // Reset form and close modal
-        setQuoteForm({ name: '', email: '', phone: '', project: '' });
-        recaptchaRef.current?.reset();
-        setQuoteModalOpen(false);
-        alert('Thank you! We will contact you soon.');
+        // Show success state
+        setFormSubmitted(true);
       } else {
-        alert('There was an error submitting your request. Please try again.');
+        toast.error('There was an error submitting your request. Please try again.');
       }
     } catch (error) {
       console.error('Error submitting form:', error);
-      alert('There was an error submitting your request. Please try again.');
+      toast.error('There was an error submitting your request. Please try again.');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
+  const formatPhoneNumber = (value: string) => {
+    // Remove all non-digits
+    const phoneNumber = value.replace(/\D/g, '');
+    
+    // Format as (000) 000-0000
+    if (phoneNumber.length === 0) return '';
+    if (phoneNumber.length <= 3) return `(${phoneNumber}`;
+    if (phoneNumber.length <= 6) return `(${phoneNumber.slice(0, 3)}) ${phoneNumber.slice(3)}`;
+    return `(${phoneNumber.slice(0, 3)}) ${phoneNumber.slice(3, 6)}-${phoneNumber.slice(6, 10)}`;
+  };
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    setQuoteForm({
-      ...quoteForm,
-      [e.target.name]: e.target.value
-    });
+    const { name, value } = e.target;
+    
+    if (name === 'phone') {
+      // Format phone number as user types
+      const formattedPhone = formatPhoneNumber(value);
+      setQuoteForm({
+        ...quoteForm,
+        [name]: formattedPhone
+      });
+    } else {
+      setQuoteForm({
+        ...quoteForm,
+        [name]: value
+      });
+    }
+  };
+
+  const closeModal = () => {
+    setQuoteModalOpen(false);
+    // Reset form state when modal is closed
+    setTimeout(() => {
+      setFormSubmitted(false);
+      setIsSubmitting(false);
+      setQuoteForm({ name: '', email: '', phone: '', project: '' });
+      recaptchaRef.current?.reset();
+    }, 300); // Small delay to allow modal close animation
   };
 
   return (
@@ -548,9 +585,11 @@ export function HomeContent() {
           <div className="bg-white rounded-xl max-w-md w-full max-h-[90vh] overflow-y-auto">
             <div className="p-6">
               <div className="flex justify-between items-center mb-6">
-                <h3 className="text-2xl font-bold text-gray-900">Quote Form</h3>
+                <h3 className="text-2xl font-bold text-gray-900">
+                  {formSubmitted ? 'Thank You!' : 'Get Free Quote'}
+                </h3>
                 <button
-                  onClick={() => setQuoteModalOpen(false)}
+                  onClick={closeModal}
                   className="text-gray-500 hover:text-gray-700 text-2xl"
                   aria-label="Close modal"
                 >
@@ -558,7 +597,40 @@ export function HomeContent() {
                 </button>
               </div>
 
-              <form onSubmit={handleQuoteSubmit} className="space-y-4">
+              {formSubmitted ? (
+                // Success Component
+                <div className="text-center py-2">
+                  <div className="mb-6">
+                    <div className="mx-auto w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-4">
+                      <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <h4 className="text-xl font-semibold text-gray-900 mb-1">Request Submitted!</h4>
+                    <p className="text-gray-600">
+                      Thank you for your interest. We'll get back to you soon to discuss your project.
+                    </p>
+                  </div>
+                  <div className="border-t border-gray-200 pt-6">
+                    <div className="flex flex-col sm:flex-row gap-3">
+                      <button
+                        onClick={closeModal}
+                        className="flex-1 border border-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-50 transition-colors"
+                      >
+                        Close
+                      </button>
+                      <a
+                        href="tel:(657) 888-0026"
+                        className="flex-1 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors text-center font-semibold"
+                      >
+                        (657) 888-0026
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                // Form Component
+                <form onSubmit={handleQuoteSubmit} className="space-y-4">
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
                     Full Name <span className="text-red-500">*</span>
@@ -602,8 +674,9 @@ export function HomeContent() {
                     value={quoteForm.phone}
                     onChange={handleInputChange}
                     required
+                    maxLength={14}
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    placeholder="Enter your phone number"
+                    placeholder="(000) 000-0000"
                   />
                 </div>
 
@@ -636,22 +709,24 @@ export function HomeContent() {
                   />
                 </div>
 
-                <div className="flex gap-3 pt-4">
-                  <button
-                    type="button"
-                    onClick={() => setQuoteModalOpen(false)}
-                    className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    type="submit"
-                    className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-semibold"
-                  >
-                    Submit Request
-                  </button>
-                </div>
-              </form>
+                  <div className="flex gap-3 pt-4">
+                    <button
+                      type="button"
+                      onClick={closeModal}
+                      className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-semibold disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-blue-600"
+                    >
+                      {isSubmitting ? 'Submitting...' : 'Submit Request'}
+                    </button>
+                  </div>
+                </form>
+              )}
             </div>
           </div>
         </div>

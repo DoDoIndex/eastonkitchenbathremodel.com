@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Noto_Serif, Noto_Sans, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Suspense } from 'react';
+import { Toaster } from 'react-hot-toast';
 
 const notoSans = Noto_Sans({
   variable: '--font-noto-sans',
@@ -36,6 +37,7 @@ export default function RootLayout({
         className={`${notoSans.variable} ${geistMono.variable} ${notoSerif.variable} antialiased`}
       >
         {children}
+        <Toaster position="bottom-right" />
       </body>
     </html>
   );
