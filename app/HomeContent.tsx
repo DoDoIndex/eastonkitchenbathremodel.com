@@ -219,7 +219,7 @@ export function HomeContent() {
             <div>
               <a 
                 href="tel:6578880026"
-                className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-4 pt-1.5 pb-2 sm:px-6 sm:py-3 lg:px-8 lg:py-4 rounded-lg font-semibold hover:from-blue-700 hover:to-blue-800 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
+                className="bg-gradient-to-r from-sky-600 to-sky-700 text-white px-4 pt-1.5 pb-2 sm:px-6 sm:py-3 lg:px-8 lg:py-4 rounded-lg font-semibold hover:from-sky-700 hover:to-sky-800 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
               >
                 <span className="text-sm sm:text-base lg:text-xl font-semibold">(657) 888-0026</span>
               </a>
@@ -240,7 +240,7 @@ export function HomeContent() {
               </p>
               <h1 className="text-xl md:text-3xl mb-6 md:mb-8 max-w-lg font-sans">
                 Your trusted local general contractor in 
-                <span className="text-blue-500 ml-2">Anaheim Hills</span>
+                <span className="text-sky-500 font-semibold ml-2">Anaheim Hills</span>
               </h1>
               <p className="text-lg md:text-xl mb-8 text-gray-400 max-w-xl">
                 My team specializes in <span className="text-white">kitchen &amp; bathroom remodeling</span> with over <span className="text-white">20 years</span> of professional experience. <span className="text-white inline-block">CSLB #1121194</span>
@@ -298,7 +298,7 @@ export function HomeContent() {
               Specialties
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Check out the two special services we offer. Yes, they're <span className="text-blue-600 font-medium">real photos</span> taken from projects we've done in Anaheim Hills or nearby Orange County areas.
+              Check out the two special services we offer. Yes, they're <span className="text-sky-600 font-medium">real photos</span> taken from projects we've done in Anaheim Hills or nearby Orange County areas.
             </p>
           </div>
 
@@ -404,7 +404,7 @@ export function HomeContent() {
               My Team
             </h2>
               <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                We are <span className="text-blue-600 font-medium">fully licensed</span>, reliable, and not afraid to get our hands dirty to deliver quality work you can count on.
+                We are <span className="text-sky-600 font-medium">fully licensed</span>, reliable, and not afraid to get our hands dirty to deliver quality work you can count on.
               </p>
           </div>
 
@@ -446,7 +446,7 @@ export function HomeContent() {
               Transformations
             </h2>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              See the <span className="text-blue-600 font-medium">Before & After</span> photos that show how we turn outdated bathrooms into stunning modern spaces, crafted with care and detail.
+              See the <span className="text-sky-600 font-medium">Before & After</span> photos that show how we turn outdated bathrooms into stunning modern spaces, crafted with care and detail.
             </p>
           </div>
 
@@ -501,7 +501,7 @@ export function HomeContent() {
               More Photos
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Let the <span className="text-blue-600 font-medium">results</span> speak for themselves with expert craftsmanship in every detail.
+              Let the <span className="text-sky-600 font-medium">results</span> speak for themselves with expert craftsmanship in every detail.
             </p>
           </div>
 
@@ -627,8 +627,8 @@ export function HomeContent() {
                 // Success Component
                 <div className="text-center py-2">
                   <div className="mb-6">
-                    <div className="mx-auto w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-4">
-                      <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div className="mx-auto w-16 h-16 bg-sky-100 rounded-full flex items-center justify-center mb-4">
+                      <svg className="w-8 h-8 text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                       </svg>
                     </div>
@@ -647,7 +647,7 @@ export function HomeContent() {
                       </button>
                       <a
                         href="tel:(657) 888-0026"
-                        className="flex-1 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors text-center font-semibold"
+                        className="flex-1 bg-sky-600 text-white px-4 py-2 rounded-lg hover:bg-sky-700 transition-colors text-center font-semibold"
                       >
                         (657) 888-0026
                       </a>
@@ -668,7 +668,7 @@ export function HomeContent() {
                     value={quoteForm.name}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent"
                     placeholder="Enter your full name"
                   />
                 </div>
@@ -684,7 +684,7 @@ export function HomeContent() {
                     value={quoteForm.email}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent"
                     placeholder="Enter your email address"
                   />
                 </div>
@@ -701,7 +701,7 @@ export function HomeContent() {
                     onChange={handleInputChange}
                     required
                     maxLength={14}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent"
                     placeholder="(000) 000-0000"
                   />
                 </div>
@@ -716,7 +716,7 @@ export function HomeContent() {
                     value={quoteForm.project}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent"
                   >
                     <option value="">Select a project type</option>
                     <option value="Kitchen">Kitchen Remodeling</option>
@@ -746,7 +746,7 @@ export function HomeContent() {
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-semibold disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-blue-600"
+                      className="flex-1 px-4 py-2 bg-sky-600 text-white rounded-lg hover:bg-sky-700 transition-colors font-semibold disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-sky-600"
                     >
                       {isSubmitting ? 'Submitting...' : 'Submit'}
                     </button>
@@ -778,7 +778,7 @@ export function HomeContent() {
           {/* Button */}
           <button
             onClick={() => setQuoteModalOpen(true)}
-            className="bg-blue-600 hover:bg-blue-700 text-white p-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
+            className="bg-sky-600 hover:bg-sky-700 text-white p-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
             aria-label="Get Quote"
           >
             <svg 
