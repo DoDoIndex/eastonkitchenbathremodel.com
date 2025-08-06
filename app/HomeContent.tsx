@@ -275,8 +275,8 @@ export function HomeContent() {
             <div className="flex-1 flex justify-center h-full w-full">
               <div className="w-full h-full overflow-hidden pt-6">
                 <Image 
-                  src="/travis-01.webp" 
-                  alt="Travis - Licensed General Contractor specializing in kitchen and bathroom remodeling in Anaheim Hills, Orange County. CSLB License 1121194" 
+                  src="/travis-easton.webp" 
+                  alt="Travis Easton - Licensed General Contractor specializing in kitchen and bathroom remodeling in Anaheim Hills, Orange County. CSLB License 1121194" 
                   className="w-full h-full object-cover object-bottom"
                   loading="eager"
                   width={584}
