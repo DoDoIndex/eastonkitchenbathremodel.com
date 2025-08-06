@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     siteName: 'Anaheim Hills Contractor',
     images: [
       {
-        url: '/contractor.webp',
+        url: '/travis-easton.webp',
         width: 1200,
         height: 630,
         alt: 'Travis - Licensed Anaheim Hills Contractor',
@@ -48,7 +48,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Anaheim Hills Contractor - Kitchen & Bathroom Remodeling',
     description: 'Expert remodeling services in Anaheim Hills & Orange County. Licensed CSLB 1121194.',
-    images: ['/contractor.webp'],
+    images: ['/travis-easton.webp'],
   },
   robots: {
     index: true,
