@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
 import Lightbox from 'yet-another-react-lightbox';
@@ -46,7 +46,19 @@ export function HomeContent() {
   });
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showTooltip, setShowTooltip] = useState(false);
   const recaptchaRef = useRef<ReCAPTCHA>(null);
+
+  // Scroll detection for tooltip
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      setShowTooltip(scrollY > 100);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   // Hardcoded shuffled photos array
   const shuffledPhotos = [
@@ -230,7 +242,7 @@ export function HomeContent() {
                 <span className="text-green-500 ml-2">Anaheim Hills</span>
               </h1>
               <p className="text-lg md:text-xl mb-8 text-gray-400 max-w-xl">
-                My team specializes in <span className="text-white">kitchen &amp; bathroom remodeling</span> with over <span className="text-white">20 years</span> of professional experience. <span className="text-white">CSLB #1121194</span>
+                My team specializes in <span className="text-white">kitchen &amp; bathroom remodeling</span> with over <span className="text-white">20 years</span> of professional experience. <span className="text-white inline-block">CSLB #1121194</span>
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
                 <button 
@@ -586,7 +598,7 @@ export function HomeContent() {
             <div className="p-6">
               <div className="flex justify-between items-center mb-6">
                 <h3 className="text-2xl font-bold text-gray-900">
-                  {formSubmitted ? 'Thank You!' : 'Get Free Quote'}
+                  {formSubmitted ? 'Thank You!' : 'Get Free Estimate'}
                 </h3>
                 <button
                   onClick={closeModal}
@@ -720,7 +732,7 @@ export function HomeContent() {
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-semibold disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-blue-600"
+                      className="flex-1 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-semibold disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-green-600"
                     >
                       {isSubmitting ? 'Submitting...' : 'Submit Request'}
                     </button>
@@ -731,6 +743,46 @@ export function HomeContent() {
           </div>
         </div>
       )}
+
+      {/* Floating Action Button with Tooltip */}
+      <div className="fixed bottom-6 right-6 z-40">
+        <div className="relative group">
+          {/* Tooltip */}
+          {showTooltip && (
+            <div className="absolute bottom-full right-0 mb-2 pointer-events-none">
+              <div className="bg-white text-gray-900 text-sm px-3 py-2 rounded-lg whitespace-nowrap relative border border-[#CCCCCC]">
+                🛠️ Get Project Estimate
+                {/* Arrow pointing down to center of button with border */}
+                <div className="absolute top-full" style={{right: '22px'}}>
+                  <div className="w-0 h-0" style={{borderLeft: '6px solid transparent', borderRight: '6px solid transparent', borderTop: '6px solid #AAAAAA'}}></div>
+                  <div className="w-0 h-0 absolute top-0 left-0 transform -translate-y-px" style={{borderLeft: '6px solid transparent', borderRight: '6px solid transparent', borderTop: '6px solid white'}}></div>
+                </div>
+              </div>
+            </div>
+          )}
+          
+          {/* Button */}
+          <button
+            onClick={() => setQuoteModalOpen(true)}
+            className="bg-green-600 hover:bg-green-700 text-white p-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
+            aria-label="Get Quote"
+          >
+            <svg 
+              className="w-6 h-6" 
+              fill="none" 
+              stroke="currentColor" 
+              viewBox="0 0 24 24"
+            >
+              <path 
+                strokeLinecap="round" 
+                strokeLinejoin="round" 
+                strokeWidth={2} 
+                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" 
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
     </main>
   );
 }
