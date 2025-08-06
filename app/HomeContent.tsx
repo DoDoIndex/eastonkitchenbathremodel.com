@@ -54,7 +54,7 @@ export function HomeContent() {
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
-      setShowTooltip(scrollY > 100);
+      setShowTooltip(scrollY > 700);
     };
 
     window.addEventListener('scroll', handleScroll);
