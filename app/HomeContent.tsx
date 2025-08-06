@@ -272,15 +272,15 @@ export function HomeContent() {
             </div>
             
             {/* Photo */}
-            <div className="flex-1 flex justify-center h-full">
+            <div className="flex-1 flex justify-center h-full w-full">
               <div className="w-full h-full overflow-hidden pt-6">
                 <Image 
-                  src="/contractor.webp" 
+                  src="/02.png" 
                   alt="Travis - Licensed General Contractor specializing in kitchen and bathroom remodeling in Anaheim Hills, Orange County. CSLB License 1121194" 
                   className="w-full h-full object-cover object-bottom"
                   loading="eager"
-                  width={400}
-                  height={600}
+                  width={584}
+                  height={584}
                   sizes="(max-width: 768px) 100vw, 50vw"
                   priority
                 />
@@ -329,9 +329,9 @@ export function HomeContent() {
                           alt={`${service.title} - Image ${imgIndex + 1}`}
                           className="w-full h-full object-cover cursor-pointer"
                           onClick={() => openLightbox(service.images, imgIndex)}
-                          width={380}
-                          height={253}
-                          sizes="(max-width: 768px) 90vw, (max-width: 1200px) 45vw, 380px"
+                          width={800}
+                          height={512}
+                          sizes="(max-width: 768px) 90vw, (max-width: 1200px) 45vw, 600px"
                           onError={(e) => {
                             const target = e.currentTarget as HTMLImageElement;
                             target.style.display = 'none';
@@ -414,8 +414,8 @@ export function HomeContent() {
                 src="/travis-and-team.jpg" 
                 alt="Travis and his team"
                 className="w-full h-auto"
-                width={380}
-                height={253}
+                width={960}
+                height={640}
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
                 onError={(e) => {
                   const target = e.currentTarget as HTMLImageElement;
@@ -478,7 +478,7 @@ export function HomeContent() {
                   currentPercentPosition={40}
                 />
                 
-                                    {/* Before Label - Left */}
+                    {/* Before Label - Left */}
                     <div className="absolute bottom-4 left-4 bg-gray-800 text-white px-4 py-2 rounded-lg text-sm font-bold shadow-lg">
                       BEFORE
                     </div>
@@ -517,8 +517,8 @@ export function HomeContent() {
                   src={photo.src}
                   alt={`${photo.type} Remodeling Project`}
                   className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                  width={380}
-                  height={253}
+                  width={389}
+                  height={250}
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   onError={(e) => {
                     const target = e.currentTarget as HTMLImageElement;
