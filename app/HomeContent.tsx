@@ -219,7 +219,7 @@ export function HomeContent() {
             <div>
               <a 
                 href="tel:6578880026"
-                className="bg-gradient-to-r from-green-600 to-green-700 text-white px-4 pt-1.5 pb-2 sm:px-6 sm:py-3 lg:px-8 lg:py-4 rounded-lg font-semibold hover:from-green-700 hover:to-green-800 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
+                className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-4 pt-1.5 pb-2 sm:px-6 sm:py-3 lg:px-8 lg:py-4 rounded-lg font-semibold hover:from-blue-700 hover:to-blue-800 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
               >
                 <span className="text-sm sm:text-base lg:text-xl font-semibold">(657) 888-0026</span>
               </a>
@@ -240,7 +240,7 @@ export function HomeContent() {
               </p>
               <h1 className="text-xl md:text-3xl mb-6 md:mb-8 max-w-lg font-sans">
                 Your trusted local general contractor in 
-                <span className="text-green-500 ml-2">Anaheim Hills</span>
+                <span className="text-blue-400 ml-2">Anaheim Hills</span>
               </h1>
               <p className="text-lg md:text-xl mb-8 text-gray-400 max-w-xl">
                 My team specializes in <span className="text-white">kitchen &amp; bathroom remodeling</span> with over <span className="text-white">20 years</span> of professional experience. <span className="text-white inline-block">CSLB #1121194</span>
@@ -577,7 +577,7 @@ export function HomeContent() {
           </div>
           <div className="mt-8 pt-6 border-t border-gray-600">
             <p className="text-gray-300 text-base text-center">
-              CSLB Lic. 1121194
+              CSLB Lic. #1121194
             </p>
           </div>
         </div>
@@ -627,8 +627,8 @@ export function HomeContent() {
                 // Success Component
                 <div className="text-center py-2">
                   <div className="mb-6">
-                    <div className="mx-auto w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-4">
-                      <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div className="mx-auto w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-4">
+                      <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                       </svg>
                     </div>
@@ -647,7 +647,7 @@ export function HomeContent() {
                       </button>
                       <a
                         href="tel:(657) 888-0026"
-                        className="flex-1 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors text-center font-semibold"
+                        className="flex-1 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors text-center font-semibold"
                       >
                         (657) 888-0026
                       </a>
@@ -746,7 +746,7 @@ export function HomeContent() {
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="flex-1 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-semibold disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-green-600"
+                      className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-semibold disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-blue-600"
                     >
                       {isSubmitting ? 'Submitting...' : 'Submit Request'}
                     </button>
@@ -778,7 +778,7 @@ export function HomeContent() {
           {/* Button */}
           <button
             onClick={() => setQuoteModalOpen(true)}
-            className="bg-green-600 hover:bg-green-700 text-white p-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
+            className="bg-blue-600 hover:bg-blue-700 text-white p-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
             aria-label="Get Quote"
           >
             <svg 
