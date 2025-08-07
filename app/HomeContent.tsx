@@ -253,22 +253,6 @@ export function HomeContent() {
                 >
                   Claim Package
                 </button>
-                <button 
-                  onClick={() => {
-                    const element = document.getElementById('services');
-                    if (element) {
-                      // Responsive navbar height: 64px on mobile, 80px on tablet, 96px on desktop
-                      const isMobile = window.innerWidth < 640;
-                      const isTablet = window.innerWidth >= 640 && window.innerWidth < 1024;
-                      const navbarHeight = isMobile ? 64 : isTablet ? 80 : 96;
-                      const elementPosition = element.offsetTop - navbarHeight;
-                      window.scrollTo({ top: elementPosition, behavior: 'smooth' });
-                    }
-                  }}
-                  className="border-2 border-white text-xl text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-black transition-colors"
-                >
-                  View Services
-                </button>
               </div>
             </div>
             
@@ -306,7 +290,7 @@ export function HomeContent() {
           <div className="w-full">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="bg-white border border-gray-300 rounded-xl p-8 text-center">
-                <div className="w-16 h-16 bg-sky-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                <div className="w-16 h-16 bg-gray-700 rounded-full flex items-center justify-center mx-auto mb-4">
                   <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                   </svg>
@@ -315,7 +299,7 @@ export function HomeContent() {
                 <p className="text-gray-600">Free designs show we know what we're doing and build confidence before any money is involved.</p>
               </div>
               <div className="bg-white border border-gray-300 rounded-xl p-8 text-center">
-                <div className="w-16 h-16 bg-sky-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                <div className="w-16 h-16 bg-gray-700 rounded-full flex items-center justify-center mx-auto mb-4">
                   <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
                   </svg>
@@ -324,7 +308,7 @@ export function HomeContent() {
                 <p className="text-gray-600">We believe in our work, so we offer free designs to show what's possible before you commit.</p>
               </div>
               <div className="bg-white border border-gray-300 rounded-xl p-8 text-center">
-                <div className="w-16 h-16 bg-sky-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                <div className="w-16 h-16 bg-gray-700 rounded-full flex items-center justify-center mx-auto mb-4">
                   <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                   </svg>
@@ -333,6 +317,16 @@ export function HomeContent() {
                 <p className="text-gray-600">When customers can visualize the result, they decide faster and with fewer objections.</p>
               </div>
             </div>
+          </div>
+          
+          {/* CTA Button */}
+          <div className="text-center mt-12">
+            <button 
+              onClick={() => setQuoteModalOpen(true)}
+              className="bg-sky-600 text-white px-8 py-4 rounded-lg font-semibold hover:bg-sky-700 transition-colors text-lg"
+            >
+              Claim Your Free Design
+            </button>
           </div>
         </div>
       </section>
@@ -440,6 +434,16 @@ export function HomeContent() {
               </div>
             ))}
           </div>
+          
+          {/* CTA Button */}
+          <div className="text-center mt-12">
+            <button 
+              onClick={() => setQuoteModalOpen(true)}
+              className="bg-sky-600 text-white px-8 py-4 rounded-lg font-semibold hover:bg-sky-700 transition-colors text-lg"
+            >
+              Request Free Design
+            </button>
+          </div>
         </div>
       </section>
 
@@ -460,7 +464,7 @@ export function HomeContent() {
             <div className="bg-gray-50 rounded-xl shadow-lg p-8 h-full flex flex-col justify-center">
               <div className="space-y-8">
                 <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-sky-600 rounded-full flex items-center justify-center flex-shrink-0">
+                  <div className="w-12 h-12 bg-gray-700 rounded-full flex items-center justify-center flex-shrink-0">
                     <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
                     </svg>
@@ -472,7 +476,7 @@ export function HomeContent() {
                 </div>
 
                 <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-sky-600 rounded-full flex items-center justify-center flex-shrink-0">
+                  <div className="w-12 h-12 bg-gray-700 rounded-full flex items-center justify-center flex-shrink-0">
                     <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                     </svg>
@@ -484,7 +488,7 @@ export function HomeContent() {
                 </div>
 
                 <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-sky-600 rounded-full flex items-center justify-center flex-shrink-0">
+                  <div className="w-12 h-12 bg-gray-700 rounded-full flex items-center justify-center flex-shrink-0">
                     <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
@@ -496,7 +500,7 @@ export function HomeContent() {
                 </div>
 
                 <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-sky-600 rounded-full flex items-center justify-center flex-shrink-0">
+                  <div className="w-12 h-12 bg-gray-700 rounded-full flex items-center justify-center flex-shrink-0">
                     <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                     </svg>
@@ -516,6 +520,7 @@ export function HomeContent() {
                   modules={[Navigation, Pagination]}
                   spaceBetween={10}
                   slidesPerView={1}
+                  loop={true}
                   navigation={{
                     nextEl: '.swiper-button-next-whatyouget',
                     prevEl: '.swiper-button-prev-whatyouget',
@@ -575,6 +580,16 @@ export function HomeContent() {
               </div>
             </div>
           </div>
+          
+          {/* CTA Button */}
+          <div className="text-center mt-12">
+            <button 
+              onClick={() => setQuoteModalOpen(true)}
+              className="bg-sky-600 text-white px-8 py-4 rounded-lg font-semibold hover:bg-sky-700 transition-colors text-lg"
+            >
+              Get Your Free Design
+            </button>
+          </div>
         </div>
       </section>
 
@@ -586,8 +601,50 @@ export function HomeContent() {
               How It Works
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              [Content to be added]
+              Getting your free design is simple. <span className="text-sky-600 font-medium">No meetings, no sales pressure</span>, just a straightforward process to get you the design you deserve.
             </p>
+          </div>
+
+          <div className="w-full">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="bg-white border border-gray-300 rounded-xl p-8 text-center">
+                <div className="w-16 h-16 bg-gray-700 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                  </svg>
+                </div>
+                <h3 className="text-xl font-bold text-black mb-2">Fill out a short form</h3>
+                <p className="text-gray-600">Tell us a bit about you and your budget. It only takes a minute.</p>
+              </div>
+              <div className="bg-white border border-gray-300 rounded-xl p-8 text-center">
+                <div className="w-16 h-16 bg-gray-700 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+                  </svg>
+                </div>
+                <h3 className="text-xl font-bold text-black mb-2">Upload photos and inspiration</h3>
+                <p className="text-gray-600">We’ll email you a Google Drive link so you can upload pictures and ideas.</p>
+              </div>
+              <div className="bg-white border border-gray-300 rounded-xl p-8 text-center">
+                <div className="w-16 h-16 bg-gray-700 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <h3 className="text-xl font-bold text-black mb-2">Get your free design in 3 days</h3>
+                <p className="text-gray-600">Our designer will create a custom 3D design and send it straight to your inbox.</p>
+              </div>
+            </div>
+          </div>
+          
+          {/* CTA Button */}
+          <div className="text-center mt-12">
+            <button 
+              onClick={() => setQuoteModalOpen(true)}
+              className="bg-sky-600 text-white px-8 py-4 rounded-lg font-semibold hover:bg-sky-700 transition-colors text-lg"
+            >
+              Start Your Free Design
+            </button>
           </div>
         </div>
       </section>
@@ -644,6 +701,16 @@ export function HomeContent() {
               </div>
             ))}
           </div>
+          
+          {/* CTA Button */}
+          <div className="text-center mt-12">
+            <button 
+              onClick={() => setQuoteModalOpen(true)}
+              className="bg-sky-600 text-white px-8 py-4 rounded-lg font-semibold hover:bg-sky-700 transition-colors text-lg"
+            >
+              Get Started Today
+            </button>
+          </div>
         </div>
       </section>
 
@@ -689,6 +756,16 @@ export function HomeContent() {
               </div>
             ))}
           </div>
+          
+          {/* CTA Button */}
+          <div className="text-center mt-12">
+            <button 
+              onClick={() => setQuoteModalOpen(true)}
+              className="bg-sky-600 text-white px-8 py-4 rounded-lg font-semibold hover:bg-sky-700 transition-colors text-lg"
+            >
+              Design My Space
+            </button>
+          </div>
         </div>
       </section>
 
@@ -714,14 +791,7 @@ export function HomeContent() {
             ></iframe>
           </div>
           
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a 
-              href="tel:6578880026" 
-              className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-black transition-colors"
-              aria-label="Call Travis at (657) 888-0026"
-            >
-              (657) 888-0026
-            </a>
+          <div className="flex justify-center">
             <button 
               onClick={() => setQuoteModalOpen(true)}
               className="bg-white text-black px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors inline-block"
@@ -801,7 +871,7 @@ export function HomeContent() {
                       </button>
                       <a
                         href="tel:(657) 888-0026"
-                        className="flex-1 bg-sky-600 text-white px-4 py-2 rounded-lg hover:bg-sky-700 transition-colors text-center font-semibold"
+                        className="flex-1 bg-black text-white px-4 py-2 rounded-lg hover:bg-sky-700 transition-colors text-center font-semibold"
                       >
                         (657) 888-0026
                       </a>
@@ -910,7 +980,7 @@ export function HomeContent() {
                   />
                 </div>
 
-                  <div className="flex gap-3 pt-4">
+                  <div className="flex gap-3">
                     <button
                       type="button"
                       onClick={closeModal}
@@ -921,7 +991,7 @@ export function HomeContent() {
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="flex-1 px-4 py-2 bg-sky-600 text-white rounded-lg hover:bg-sky-700 transition-colors font-semibold disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-sky-600"
+                      className="flex-1 px-4 py-2 bg-black text-white rounded-lg hover:bg-sky-700 transition-colors font-semibold disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-black"
                     >
                       {isSubmitting ? 'Submitting...' : 'Submit'}
                     </button>
