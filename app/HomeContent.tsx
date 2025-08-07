@@ -44,7 +44,8 @@ export function HomeContent() {
     email: '',
     phone: '',
     project: '',
-    budget: ''
+    budget: '',
+    source: ''
   });
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -189,13 +190,18 @@ export function HomeContent() {
     }
   };
 
+  const openQuoteModal = (source: string) => {
+    setQuoteForm(prev => ({ ...prev, source }));
+    setQuoteModalOpen(true);
+  };
+
   const closeModal = () => {
     setQuoteModalOpen(false);
     // Reset form state when modal is closed
     setTimeout(() => {
       setFormSubmitted(false);
       setIsSubmitting(false);
-      setQuoteForm({ name: '', email: '', phone: '', project: '', budget: '' });
+      setQuoteForm({ name: '', email: '', phone: '', project: '', budget: '', source: '' });
       recaptchaRef.current?.reset();
     }, 300); // Small delay to allow modal close animation
   };
@@ -244,11 +250,11 @@ export function HomeContent() {
                 <span className="text-sky-500 font-semibold ml-2">for FREE</span>.
               </h1>
               <p className="text-lg lg:text-xl mb-8 text-gray-400 max-w-4xl lg:max-w-xl">
-                We normally charge $450 for this design. For August, it’s free. You’ll see exactly what your remodel will look like, before spending money.
+                We <span className="text-white">normally charge $450</span> for this design. For <span className="text-white">August, it’s FREE</span>. You’ll see exactly what your remodel will look like, <span className="text-white">before spending money</span>.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                 <button 
-                  onClick={() => setQuoteModalOpen(true)}
+                  onClick={() => openQuoteModal('Hero')}
                   className="bg-white text-black text-xl px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
                 >
                   Claim Package
@@ -322,7 +328,7 @@ export function HomeContent() {
           {/* CTA Button */}
           <div className="text-center mt-12">
             <button 
-              onClick={() => setQuoteModalOpen(true)}
+              onClick={() => openQuoteModal('Why Free')}
               className="bg-sky-600 text-white px-8 py-4 rounded-lg font-semibold hover:bg-sky-700 transition-colors text-lg"
             >
               Claim Your Free Design
@@ -438,7 +444,7 @@ export function HomeContent() {
           {/* CTA Button */}
           <div className="text-center mt-12">
             <button 
-              onClick={() => setQuoteModalOpen(true)}
+              onClick={() => openQuoteModal('What We Specialize In')}
               className="bg-sky-600 text-white px-8 py-4 rounded-lg font-semibold hover:bg-sky-700 transition-colors text-lg"
             >
               Request Free Design
@@ -584,7 +590,7 @@ export function HomeContent() {
           {/* CTA Button */}
           <div className="text-center mt-12">
             <button 
-              onClick={() => setQuoteModalOpen(true)}
+              onClick={() => openQuoteModal('What You Get')}
               className="bg-sky-600 text-white px-8 py-4 rounded-lg font-semibold hover:bg-sky-700 transition-colors text-lg"
             >
               Get Your Free Design
@@ -640,7 +646,7 @@ export function HomeContent() {
           {/* CTA Button */}
           <div className="text-center mt-12">
             <button 
-              onClick={() => setQuoteModalOpen(true)}
+              onClick={() => openQuoteModal('How It Works')}
               className="bg-sky-600 text-white px-8 py-4 rounded-lg font-semibold hover:bg-sky-700 transition-colors text-lg"
             >
               Start Your Free Design
@@ -705,7 +711,7 @@ export function HomeContent() {
           {/* CTA Button */}
           <div className="text-center mt-12">
             <button 
-              onClick={() => setQuoteModalOpen(true)}
+              onClick={() => openQuoteModal('Transformations')}
               className="bg-sky-600 text-white px-8 py-4 rounded-lg font-semibold hover:bg-sky-700 transition-colors text-lg"
             >
               Get Started Today
@@ -760,7 +766,7 @@ export function HomeContent() {
           {/* CTA Button */}
           <div className="text-center mt-12">
             <button 
-              onClick={() => setQuoteModalOpen(true)}
+              onClick={() => openQuoteModal('More Photos')}
               className="bg-sky-600 text-white px-8 py-4 rounded-lg font-semibold hover:bg-sky-700 transition-colors text-lg"
             >
               Design My Space
@@ -793,7 +799,7 @@ export function HomeContent() {
           
           <div className="flex justify-center">
             <button 
-              onClick={() => setQuoteModalOpen(true)}
+              onClick={() => openQuoteModal('Bottom CTA')}
               className="bg-white text-black px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors inline-block"
             >
               Get Started
@@ -1022,7 +1028,7 @@ export function HomeContent() {
           
           {/* Button */}
           <button
-            onClick={() => setQuoteModalOpen(true)}
+            onClick={() => openQuoteModal('Bottom Right FAB')}
             className="bg-sky-600 hover:bg-sky-700 text-white p-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
             aria-label="Get Quote"
           >

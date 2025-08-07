@@ -7,6 +7,7 @@ interface QuoteFormData {
   phone: string;
   project: string;
   budget: string;
+  source: string;
   recaptchaToken: string;
 }
 
@@ -27,7 +28,7 @@ async function verifyRecaptcha(token: string) {
 export async function POST(request: NextRequest) {
   try {
     const body: QuoteFormData = await request.json();
-    const { name, email, phone, project, budget, recaptchaToken } = body;
+    const { name, email, phone, project, budget, source, recaptchaToken } = body;
 
     // Verify reCAPTCHA
     const isValidRecaptcha = await verifyRecaptcha(recaptchaToken);
@@ -44,7 +45,8 @@ export async function POST(request: NextRequest) {
       "15": { "text": phone },         // Phone field
       "11": { "text": email },         // Email field
       "16": { "text": project },       // Project interest field
-      "17": { "text": budget }         // Budget field
+      "17": { "text": budget },        // Budget field
+      "18": { "text": source }         // Source field
     }];
 
     // Send to JotForm
@@ -71,6 +73,7 @@ export async function POST(request: NextRequest) {
       phone,
       project,
       budget,
+      source,
       timestamp: new Date().toISOString()
     });
 
@@ -89,6 +92,7 @@ export async function POST(request: NextRequest) {
         <p style="font-size: 16px;">Phone: <strong style="background-color: #FFFFC5;">${phone}</strong></p>
         <p style="font-size: 16px;">Project Interest: <strong style="background-color: #FFFFC5;">${project}</strong></p>
         <p style="font-size: 16px;">Budget: <strong style="background-color: #FFFFC5;">${budget}</strong></p>
+        <p style="font-size: 16px;">Source: <strong style="background-color: #FFFFC5;">${source}</strong></p>
         <p><em>Submitted at ${new Date().toLocaleString('en-US', { timeZone: 'America/Los_Angeles' })}</em></p>
       `
     });
