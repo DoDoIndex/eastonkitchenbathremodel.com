@@ -22,8 +22,8 @@ const notoSerif = Noto_Serif({
 });
 
 export const metadata: Metadata = {
-  title: "Caden Tile - Premium Tiles & Home Improvement",
-  description: "Your one-stop shop for premium tiles and home improvement products.",
+  title: 'Anaheim Hills Contractor - Kitchen & Bathroom Remodeling | Travis Easton - Licensed CSLB 1121194',
+  description: 'Expert kitchen and bathroom remodeling in Anaheim Hills & Orange County. Licensed contractor Travis delivers stunning transformations with 20+ years experience. Real photos, quality craftsmanship. Call (657) 888-0026',
 };
 
 export default function RootLayout({

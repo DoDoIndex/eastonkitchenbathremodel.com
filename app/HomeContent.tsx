@@ -16,6 +16,170 @@ import 'swiper/css/pagination';
 import 'yet-another-react-lightbox/styles.css';
 import 'yet-another-react-lightbox/plugins/thumbnails.css';
 
+// Reusable Form Step Component
+interface FormStepProps {
+  step: number;
+  formData: {
+    name: string;
+    email: string;
+    phone: string;
+    project: string;
+    budget: string;
+    source: string;
+  };
+  onInputChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
+  onFirstSubmit: (e: React.FormEvent, source?: string) => void;
+  onSecondSubmit: (e: React.FormEvent) => void;
+  onPrevStep: () => void;
+  isSubmitting: boolean;
+  showStepNumbers?: boolean;
+  source?: string;
+}
+
+function FormStep({ 
+  step, 
+  formData, 
+  onInputChange, 
+  onFirstSubmit, 
+  onSecondSubmit, 
+  onPrevStep, 
+  isSubmitting,
+  showStepNumbers = false,
+  source 
+}: FormStepProps) {
+  if (step === 1) {
+    return (
+      <form onSubmit={(e) => onFirstSubmit(e, source)} className="space-y-4">
+        {showStepNumbers && (
+          <div className="text-center mb-4">
+            <span className="text-sm text-gray-500">Step 1 of 2</span>
+          </div>
+        )}
+        
+        <div>
+          <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
+            Full Name <span className="text-red-500">*</span>
+          </label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            value={formData.name}
+            onChange={onInputChange}
+            required
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent text-gray-900"
+            placeholder="Enter your full name"
+          />
+        </div>
+
+        <div>
+          <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+            Email Address <span className="text-red-500">*</span>
+          </label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            value={formData.email}
+            onChange={onInputChange}
+            required
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent text-gray-900"
+            placeholder="Enter your email address"
+          />
+        </div>
+
+        <div>
+          <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
+            Phone Number <span className="text-red-500">*</span>
+          </label>
+          <input
+            type="tel"
+            id="phone"
+            name="phone"
+            value={formData.phone}
+            onChange={onInputChange}
+            required
+            maxLength={14}
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent text-gray-900"
+            placeholder="(000) 000-0000"
+          />
+        </div>
+
+        <div className="pt-4">
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className="w-full px-4 py-2 bg-sky-600 text-white rounded-lg hover:bg-sky-700 transition-colors font-semibold disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-sky-600"
+          >
+            {isSubmitting ? 'Submitting...' : 'Next'}
+          </button>
+        </div>
+      </form>
+    );
+  }
+
+  return (
+    <form onSubmit={onSecondSubmit} className="space-y-4">
+      {showStepNumbers && (
+        <div className="text-center mb-4">
+          <span className="text-sm text-gray-500">Step 2 of 2</span>
+        </div>
+      )}
+
+      <div>
+        <label htmlFor="project" className="block text-sm font-medium text-gray-700 mb-2">
+          Project Interest <span className="text-red-500">*</span>
+        </label>
+        <select
+          id="project"
+          name="project"
+          value={formData.project}
+          onChange={onInputChange}
+          required
+          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent text-gray-900"
+        >
+          <option value="">Select a project type</option>
+          <option value="Kitchen">Kitchen Remodeling</option>
+          <option value="Bathroom">Bathroom Remodeling</option>
+          <option value="Kitchen & Bath">Kitchen & Bathroom</option>
+        </select>
+      </div>
+
+      <div>
+        <label htmlFor="budget" className="block text-sm font-medium text-gray-700 mb-2">
+          Budget <span className="text-red-500">*</span>
+        </label>
+        <select
+          id="budget"
+          name="budget"
+          value={formData.budget}
+          onChange={onInputChange}
+          required
+          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent text-gray-900"
+        >
+          <option value="">Select your budget range</option>
+          <option value="Under 25k">Under $25k</option>
+          <option value="25-35k">$25k - $35k</option>
+          <option value="35-60k">$35k - $60k</option>
+          <option value="60-100k">$60k - $100k</option>
+          <option value="100-150k">$100k - $150k</option>
+          <option value="150k+">$150k+</option>
+        </select>
+      </div>
+
+      <div className="pt-4">
+        <button
+          type="submit"
+          disabled={isSubmitting}
+          className="w-full px-4 py-2 bg-sky-600 text-white rounded-lg hover:bg-sky-700 transition-colors font-semibold disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-sky-600"
+        >
+          {isSubmitting ? 'Submitting...' : 'Claim Free Design'}
+        </button>
+      </div>
+    </form>
+  );
+}
+
 export function HomeContent() {
   const [activeService, setActiveService] = useState(0);
 
@@ -39,7 +203,7 @@ export function HomeContent() {
   const [lightboxImages, setLightboxImages] = useState<string[]>([]);
   const [beforeAfterIndex, setBeforeAfterIndex] = useState(0);
   const [quoteModalOpen, setQuoteModalOpen] = useState(false);
-  const [modalStep, setModalStep] = useState(1);
+  const [formStep, setFormStep] = useState(1);
   const [submissionId, setSubmissionId] = useState<string | null>(null);
   const [quoteForm, setQuoteForm] = useState({
     name: '',
@@ -124,44 +288,6 @@ export function HomeContent() {
     setLightboxOpen(true);
   };
 
-  const handleSecondSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    // Validate step 2 fields
-    if (!quoteForm.project || !quoteForm.budget) {
-      alert('Please fill in all required fields');
-      return;
-    }
-
-    setIsSubmitting(true);
-
-    try {
-      // Update the quote with project details using submission ID
-      const response = await fetch(`/api/update-quote/${submissionId}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          project: quoteForm.project,
-          budget: quoteForm.budget
-        }),
-      });
-
-      if (response.ok) {
-        // Show success state
-        setFormSubmitted(true);
-      } else {
-        toast.error('There was an error updating your request. Please try again.');
-      }
-    } catch (error) {
-      console.error('Error updating quote:', error);
-      toast.error('There was an error updating your request. Please try again.');
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
   const formatPhoneNumber = (value: string) => {
     // Remove all non-digits
     const phoneNumber = value.replace(/\D/g, '');
@@ -193,16 +319,15 @@ export function HomeContent() {
 
   const openQuoteModal = (source: string) => {
     setQuoteForm(prev => ({ ...prev, source }));
-    setModalStep(1);
     setQuoteModalOpen(true);
   };
 
-  const handleFirstSubmit = async (e: React.FormEvent) => {
+  const handleFirstSubmit = async (e: React.FormEvent, source?: string) => {
     e.preventDefault();
     
     // Validate step 1 fields
     if (!quoteForm.name || !quoteForm.email || !quoteForm.phone) {
-      alert('Please fill in all required fields');
+      toast.error('Please fill in all required fields');
       return;
     }
 
@@ -221,7 +346,7 @@ export function HomeContent() {
           phone: quoteForm.phone,
           project: '', // Empty for now
           budget: '', // Empty for now
-          source: quoteForm.source,
+          source: source || quoteForm.source || 'Main Form', // Use source parameter or fallback to form source
           recaptchaToken: 'skip' // Skip reCAPTCHA
         }),
       });
@@ -230,7 +355,46 @@ export function HomeContent() {
         const result = await response.json();
         setSubmissionId(result.submissionId);
         // Move to step 2
-        setModalStep(2);
+        setFormStep(2);
+      } else {
+        toast.error('There was an error submitting your request. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      toast.error('There was an error submitting your request. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleSecondSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!submissionId) {
+      toast.error('Error: No submission ID found. Please start over.');
+      setFormStep(1);
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      // Update the submission with project details
+      const response = await fetch(`/api/update-quote/${submissionId}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          project: quoteForm.project,
+          budget: quoteForm.budget,
+        }),
+      });
+
+      if (response.ok) {
+        toast.success('Thank you! We\'ll contact you soon.');
+        // Redirect to upload page
+        window.location.href = `/upload/${submissionId}`;
       } else {
         toast.error('There was an error submitting your request. Please try again.');
       }
@@ -243,7 +407,20 @@ export function HomeContent() {
   };
 
   const prevStep = () => {
-    setModalStep(1);
+    setFormStep(1);
+  };
+
+  const resetForm = () => {
+    setQuoteForm({
+      name: '',
+      email: '',
+      phone: '',
+      project: '',
+      budget: '',
+      source: ''
+    });
+    setFormStep(1);
+    setSubmissionId(null);
   };
 
   const isQualified = () => {
@@ -258,13 +435,12 @@ export function HomeContent() {
 
   const closeModal = () => {
     setQuoteModalOpen(false);
-    // Reset form state when modal is closed
+    // Only reset submission state, keep form data and step
     setTimeout(() => {
       setFormSubmitted(false);
       setIsSubmitting(false);
-      setModalStep(1);
-      setSubmissionId(null);
-      setQuoteForm({ name: '', email: '', phone: '', project: '', budget: '', source: '' });
+      // Don't reset formStep - keep current step
+      // Don't reset submissionId - keep current submission
       recaptchaRef.current?.reset();
     }, 300); // Small delay to allow modal close animation
   };
@@ -304,39 +480,35 @@ export function HomeContent() {
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
           <div className="flex flex-col md:flex-row items-center gap-4 md:gap-12 h-full">
             {/* Text Content */}
-            <div className="w-full lg:w-2/5 text-center lg:text-left flex flex-col h-full py-12 lg:py-24">
-              <p className="text-4xl lg:text-6xl font-bold mb-6 font-serif">
-                Anaheim Hills Home Owners
-              </p>
-              <h1 className="text-xl lg:text-3xl mb-6 lg:mb-8 max-w-4xl lg:max-w-lg font-sans">
+            <div className="w-full lg:w-2/5 text-center lg:text-left flex flex-col h-full py-8 lg:py-24">
+              <h1 className="text-2xl lg:text-3xl mb-4 lg:mb-8 max-w-4xl lg:max-w-lg font-sans">
                 Get your Dream Kitchen or Bathroom designed 
                 <span className="text-sky-500 font-semibold ml-2">for FREE</span>.
               </h1>
-              <p className="text-lg lg:text-xl mb-8 text-gray-400 max-w-4xl lg:max-w-xl">
-                We <span className="text-white">normally charge $1,500</span> for this design. For <span className="text-white">December, it's FREE</span>. You'll see exactly what your remodel will look like, <span className="text-white">before spending money</span>.
+              <p className="text-lg lg:text-xl text-gray-400 max-w-4xl lg:max-w-xl">
+                We <span className="text-white">normally charge $1,500</span> for this design. For <span className="text-white">{new Date().toLocaleDateString('en-US', { month: 'long' })}, it's FREE</span>. You'll see exactly what your remodel will look like, <span className="text-white">before spending money</span>.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                <button 
-                  onClick={() => openQuoteModal('Hero')}
-                  className="bg-white text-black text-xl px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
-                >
-                  Claim Package
-                </button>
-              </div>
             </div>
             
-            {/* YouTube Video */}
+            {/* Quote Form */}
             <div className="w-full lg:w-3/5 flex justify-center pt-0 pb-12 lg:py-6 h-full">
-              <div className="w-full max-w-2xl">
-                <div className="relative aspect-video rounded-xl overflow-hidden shadow-lg">
-                  <iframe
-                    className="w-full h-full"
-                    src="https://www.youtube.com/embed/vX1yODjL7Gk"
-                    title="Bathroom Remodeling Process"
-                    frameBorder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                  ></iframe>
+              <div className="w-full max-w-md">
+                <div className="bg-white rounded-xl shadow-lg p-6 border border-gray-100 min-h-[415px]">
+                  <h3 className="text-2xl font-bold text-gray-800 mb-4">
+                    Request Free Design
+                  </h3>
+                  
+                  <FormStep
+                    step={formStep}
+                    formData={quoteForm}
+                    onInputChange={handleInputChange}
+                    onFirstSubmit={handleFirstSubmit}
+                    onSecondSubmit={handleSecondSubmit}
+                    onPrevStep={prevStep}
+                    isSubmitting={isSubmitting}
+                    showStepNumbers={false}
+                    source="Top Form"
+                  />
                 </div>
               </div>
             </div>
@@ -510,7 +682,7 @@ export function HomeContent() {
               onClick={() => openQuoteModal('What We Specialize In')}
               className="bg-sky-600 text-white px-8 py-4 rounded-lg font-semibold hover:bg-sky-700 transition-colors text-lg"
             >
-              Request Free Design
+              Claim Free Design
             </button>
           </div>
         </div>
@@ -848,25 +1020,27 @@ export function HomeContent() {
             Contact us today for a free consultation and quote on your next project.
           </p>
           
-          {/* Video */}
-          <div className="relative aspect-video rounded-xl overflow-hidden shadow-lg mb-8">
-            <iframe
-              className="w-full h-full"
-              src="https://www.youtube.com/embed/Pfe_cH7hfUY"
-              title="Bathroom Remodeling Process"
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            ></iframe>
-          </div>
-          
-          <div className="flex justify-center">
-            <button 
-              onClick={() => openQuoteModal('Bottom CTA')}
-              className="bg-white text-black px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors inline-block"
-            >
-              Get Started
-            </button>
+          {/* Quote Form */}
+          <div className="flex justify-center mb-8 text-left">
+            <div className="w-full max-w-md">
+              <div className="bg-white rounded-xl shadow-lg p-6 border border-gray-100">
+                <h3 className="text-2xl font-bold text-gray-800 mb-4">
+                  Request Free Design
+                </h3>
+                
+                <FormStep
+                  step={formStep}
+                  formData={quoteForm}
+                  onInputChange={handleInputChange}
+                  onFirstSubmit={handleFirstSubmit}
+                  onSecondSubmit={handleSecondSubmit}
+                  onPrevStep={prevStep}
+                  isSubmitting={isSubmitting}
+                  showStepNumbers={false}
+                  source="Bottom Form"
+                />
+              </div>
+            </div>
           </div>
           <div className="mt-8 pt-6 border-t border-gray-600">
             <p className="text-gray-300 text-base text-center">
@@ -949,130 +1123,17 @@ export function HomeContent() {
                 </div>
               ) : (
                 // 2-Step Form Component
-                <div>
-
-                  {modalStep === 1 ? (
-                    // Step 1: Contact Information Form
-                    <form onSubmit={handleFirstSubmit} className="space-y-4">
-                      
-                      <div>
-                        <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
-                          Full Name <span className="text-red-500">*</span>
-                        </label>
-                        <input
-                          type="text"
-                          id="name"
-                          name="name"
-                          value={quoteForm.name}
-                          onChange={handleInputChange}
-                          required
-                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent"
-                          placeholder="Enter your full name"
-                        />
-                      </div>
-
-                      <div>
-                        <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-                          Email Address <span className="text-red-500">*</span>
-                        </label>
-                        <input
-                          type="email"
-                          id="email"
-                          name="email"
-                          value={quoteForm.email}
-                          onChange={handleInputChange}
-                          required
-                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent"
-                          placeholder="Enter your email address"
-                        />
-                      </div>
-
-                      <div>
-                        <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
-                          Phone Number <span className="text-red-500">*</span>
-                        </label>
-                        <input
-                          type="tel"
-                          id="phone"
-                          name="phone"
-                          value={quoteForm.phone}
-                          onChange={handleInputChange}
-                          required
-                          maxLength={14}
-                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent"
-                          placeholder="(000) 000-0000"
-                        />
-                      </div>
-
-                      <div className="pt-4">
-                        <button
-                          type="submit"
-                          disabled={isSubmitting}
-                          className="w-full px-4 py-2 bg-sky-600 text-white rounded-lg hover:bg-sky-700 transition-colors font-semibold disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-sky-600"
-                        >
-                          {isSubmitting ? 'Submitting...' : 'Next'}
-                        </button>
-                      </div>
-                    </form>
-                  ) : (
-                    // Step 2: Project Details
-                    <form onSubmit={handleSecondSubmit} className="space-y-4">
-
-                      <div>
-                        <label htmlFor="project" className="block text-sm font-medium text-gray-700 mb-2">
-                          Project Interest <span className="text-red-500">*</span>
-                        </label>
-                        <select
-                          id="project"
-                          name="project"
-                          value={quoteForm.project}
-                          onChange={handleInputChange}
-                          required
-                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent"
-                        >
-                          <option value="">Select a project type</option>
-                          <option value="Kitchen">Kitchen Remodeling</option>
-                          <option value="Bathroom">Bathroom Remodeling</option>
-                          <option value="Kitchen & Bath">Kitchen & Bathroom</option>
-                        </select>
-                      </div>
-
-                      <div>
-                        <label htmlFor="budget" className="block text-sm font-medium text-gray-700 mb-2">
-                          Budget <span className="text-red-500">*</span>
-                        </label>
-                        <select
-                          id="budget"
-                          name="budget"
-                          value={quoteForm.budget}
-                          onChange={handleInputChange}
-                          required
-                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent"
-                        >
-                          <option value="">Select your budget range</option>
-                          <option value="Under 25k">Under $25k</option>
-                          <option value="25-35k">$25k - $35k</option>
-                          <option value="35-60k">$35k - $60k</option>
-                          <option value="60-100k">$60k - $100k</option>
-                          <option value="100-150k">$100k - $150k</option>
-                          <option value="150k+">$150k+</option>
-                        </select>
-                      </div>
-
-
-
-                      <div className="pt-4">
-                        <button
-                          type="submit"
-                          disabled={isSubmitting}
-                          className="w-full px-4 py-2 bg-sky-600 text-white rounded-lg hover:bg-sky-700 transition-colors font-semibold disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-sky-600"
-                        >
-                          {isSubmitting ? 'Submitting...' : 'Submit'}
-                        </button>
-                      </div>
-                    </form>
-                  )}
-                </div>
+                <FormStep
+                    step={formStep}
+                    formData={quoteForm}
+                    onInputChange={handleInputChange}
+                    onFirstSubmit={handleFirstSubmit}
+                    onSecondSubmit={handleSecondSubmit}
+                    onPrevStep={prevStep}
+                    isSubmitting={isSubmitting}
+                    showStepNumbers={false}
+                    source="Bottom Form"
+                  />
               )}
             </div>
           </div>

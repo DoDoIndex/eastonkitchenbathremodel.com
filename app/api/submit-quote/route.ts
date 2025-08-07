@@ -99,7 +99,7 @@ export async function POST(request: NextRequest) {
       to: process.env.NEXT_PUBLIC_ENVIRONMENT === "PROD" ? ['hello@eastondesigns.com', 'an@breakproject.com', 'an@cadentile.com'] : ['an@breakproject.com', 'an@cadentile.com'],
       subject: `PPC Bath Kitchen - ${name} - ${submissionId}`,
       html: `
-        <h2>PPC Bath Kitchen Remodel - Anaheim Hills</h2>
+        <h2>Contact Information</h2>
         <p style="font-size: 16px;">Name: <strong style="background-color: #FFFFC5;">${name}</strong></p>
         <p style="font-size: 16px;">Email: <strong style="background-color: #FFFFC5;">${email}</strong></p>
         <p style="font-size: 16px;">Phone: <strong style="background-color: #FFFFC5;">${phone}</strong></p>

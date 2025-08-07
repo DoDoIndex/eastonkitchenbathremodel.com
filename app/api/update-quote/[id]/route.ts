@@ -95,8 +95,7 @@ export async function POST(
       to: process.env.NEXT_PUBLIC_ENVIRONMENT === "PROD" ? ['hello@eastondesigns.com', 'an@breakproject.com', 'an@cadentile.com'] : ['an@breakproject.com', 'an@cadentile.com'],
       subject: `PPC Bath Kitchen - ${name} - ${submissionId}`,
       html: `
-        <h2>Quote Update - Anaheim Hills Contractor</h2>
-        <p style="font-size: 16px;">Submission ID: <strong style="background-color: #FFFFC5;">${submissionId}</strong></p>
+        <h2>Interest and Budget</h2>
         <p style="font-size: 16px;">Project Interest: <strong style="background-color: #FFFFC5;">${project}</strong></p>
         <p style="font-size: 16px;">Budget: <strong style="background-color: #FFFFC5;">${budget}</strong></p>
         <p><em>Updated at ${new Date().toLocaleString('en-US', { timeZone: 'America/Los_Angeles' })}</em></p>
