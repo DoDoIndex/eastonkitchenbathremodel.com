@@ -247,39 +247,12 @@ export function HomeContent() {
   };
 
   const isQualified = () => {
-    const { project, budget } = quoteForm;
-    
-    if (!project || !budget) return true; // Don't show warning until both are selected
-    
-    // Kitchen projects need at least 25k
-    if (project === 'Kitchen' && budget === 'Under 25k') {
-      return false;
-    }
-    
-    // Bathroom projects need at least 35k  
-    if (project === 'Bathroom' && (budget === 'Under 25k' || budget === '25-35k')) {
-      return false;
-    }
-    
-    // Kitchen & Bath projects need at least 60k
-    if (project === 'Kitchen & Bath' && (budget === 'Under 25k' || budget === '25-35k' || budget === '35-60k')) {
-      return false;
-    }
-    
+    // Allow all users to submit quotes regardless of budget
     return true;
   };
 
   const getQualificationMessage = () => {
-    const { project } = quoteForm;
-    
-    if (project === 'Kitchen') {
-      return 'Kitchen remodeling projects require a minimum budget of $25k to qualify.';
-    } else if (project === 'Bathroom') {
-      return 'Bathroom remodeling projects require a minimum budget of $35k to qualify.';
-    } else if (project === 'Kitchen & Bath') {
-      return 'Kitchen & bathroom remodeling projects require a minimum budget of $60k to qualify.';
-    }
-    
+    // No qualification messages needed since all users can submit
     return '';
   };
 
@@ -1086,16 +1059,12 @@ export function HomeContent() {
                         </select>
                       </div>
 
-                      {!isQualified() && (
-                        <div className="text-red-600 text-sm mt-4 p-3 bg-red-50 border border-red-200 rounded-lg">
-                          {getQualificationMessage()}
-                        </div>
-                      )}
+
 
                       <div className="pt-4">
                         <button
                           type="submit"
-                          disabled={isSubmitting || !isQualified()}
+                          disabled={isSubmitting}
                           className="w-full px-4 py-2 bg-sky-600 text-white rounded-lg hover:bg-sky-700 transition-colors font-semibold disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-sky-600"
                         >
                           {isSubmitting ? 'Submitting...' : 'Submit'}
