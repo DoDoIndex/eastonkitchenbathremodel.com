@@ -195,7 +195,7 @@ export function HomeContent() {
     setTimeout(() => {
       setFormSubmitted(false);
       setIsSubmitting(false);
-      setQuoteForm({ name: '', email: '', phone: '', project: '' });
+      setQuoteForm({ name: '', email: '', phone: '', project: '', budget: '' });
       recaptchaRef.current?.reset();
     }, 300); // Small delay to allow modal close animation
   };
