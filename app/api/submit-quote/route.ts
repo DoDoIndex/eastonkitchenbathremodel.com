@@ -30,13 +30,15 @@ export async function POST(request: NextRequest) {
     const body: QuoteFormData = await request.json();
     const { name, email, phone, project, budget, source, recaptchaToken } = body;
 
-    // Verify reCAPTCHA
-    const isValidRecaptcha = await verifyRecaptcha(recaptchaToken);
-    if (!isValidRecaptcha) {
-      return NextResponse.json(
-        { error: 'Invalid reCAPTCHA' },
-        { status: 400 }
-      );
+    // Verify reCAPTCHA (skip if token is 'skip')
+    if (recaptchaToken !== 'skip') {
+      const isValidRecaptcha = await verifyRecaptcha(recaptchaToken);
+      if (!isValidRecaptcha) {
+        return NextResponse.json(
+          { error: 'Invalid reCAPTCHA' },
+          { status: 400 }
+        );
+      }
     }
 
     // Prepare submission data with correct question IDs
@@ -67,6 +69,16 @@ export async function POST(request: NextRequest) {
       throw new Error('Failed to submit to JotForm');
     }
 
+    const jotformResult = await jotformResponse.json();
+    console.log('Full JotForm response:', JSON.stringify(jotformResult, null, 2));
+    
+    // Extract the submission ID from JotForm response
+    let submissionId = null;
+    if (jotformResult.responseCode === 200 && jotformResult.content && Array.isArray(jotformResult.content)) {
+      submissionId = jotformResult.content[0]?.submissionID;
+    }
+
+    console.log('Extracted submission ID:', submissionId);
     console.log('Quote request submitted to JotForm successfully:', {
       name,
       email,
@@ -74,6 +86,7 @@ export async function POST(request: NextRequest) {
       project,
       budget,
       source,
+      submissionId,
       timestamp: new Date().toISOString()
     });
 
@@ -98,7 +111,10 @@ export async function POST(request: NextRequest) {
     });
 
     return NextResponse.json(
-      { message: 'Quote request submitted successfully' },
+      { 
+        message: 'Quote request submitted successfully',
+        submissionId: submissionId
+      },
       { status: 200 }
     );
 
