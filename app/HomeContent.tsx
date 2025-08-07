@@ -43,7 +43,8 @@ export function HomeContent() {
     name: '',
     email: '',
     phone: '',
-    project: ''
+    project: '',
+    budget: ''
   });
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -234,23 +235,23 @@ export function HomeContent() {
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
           <div className="flex flex-col md:flex-row items-center gap-4 md:gap-12 h-full">
             {/* Text Content */}
-            <div className="flex-1 text-center md:text-left flex flex-col h-full pt-12 pb-0 md:py-24">
-              <p className="text-4xl md:text-6xl font-bold mb-6 font-serif">
-                Hi, I'm Travis
+            <div className="w-full lg:w-2/5 text-center lg:text-left flex flex-col h-full py-12 lg:py-24">
+              <p className="text-4xl lg:text-6xl font-bold mb-6 font-serif">
+                Anaheim Hills Home Owners
               </p>
-              <h1 className="text-xl md:text-3xl mb-6 md:mb-8 max-w-lg font-sans">
-                Your trusted local general contractor in 
-                <span className="text-sky-500 font-semibold ml-2">Anaheim Hills</span>
+              <h1 className="text-xl lg:text-3xl mb-6 lg:mb-8 max-w-4xl lg:max-w-lg font-sans">
+                Get your Dream Kitchen or Bathroom designed 
+                <span className="text-sky-500 font-semibold ml-2">for FREE</span>.
               </h1>
-              <p className="text-lg md:text-xl mb-8 text-gray-400 max-w-xl">
-                My team specializes in <span className="text-white">kitchen &amp; bathroom remodeling</span> with over <span className="text-white">20 years</span> of professional experience. <span className="text-white inline-block">CSLB #1121194</span>
+              <p className="text-lg lg:text-xl mb-8 text-gray-400 max-w-4xl lg:max-w-xl">
+                We normally charge $450 for this design. For August, it’s free. You’ll see exactly what your remodel will look like, before spending money.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                 <button 
                   onClick={() => setQuoteModalOpen(true)}
                   className="bg-white text-black text-xl px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
                 >
-                  Get Free Quote
+                  Claim Package
                 </button>
                 <button 
                   onClick={() => {
@@ -271,31 +272,77 @@ export function HomeContent() {
               </div>
             </div>
             
-            {/* Photo */}
-            <div className="flex-1 flex justify-center h-full w-full">
-              <div className="w-full h-full overflow-hidden pt-6">
-                <Image 
-                  src="/travis-easton.webp" 
-                  alt="Travis Easton - Licensed General Contractor specializing in kitchen and bathroom remodeling in Anaheim Hills, Orange County. CSLB License 1121194" 
-                  className="w-full h-full object-cover object-bottom"
-                  loading="eager"
-                  width={584}
-                  height={584}
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                  priority
-                />
+            {/* YouTube Video */}
+            <div className="w-full lg:w-3/5 flex justify-center pt-0 pb-12 lg:py-6 h-full">
+              <div className="w-full max-w-2xl">
+                <div className="relative aspect-video rounded-xl overflow-hidden shadow-lg">
+                  <iframe
+                    className="w-full h-full"
+                    src="https://www.youtube.com/embed/vX1yODjL7Gk"
+                    title="Bathroom Remodeling Process"
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  ></iframe>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </header>
 
+      {/* Why Free Section */}
+      <section className="py-16 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              Why Free?
+            </h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            We’re confident in our craftsmanship. When you see our design, you’ll know you’re in good hands. Some choose to hire us. Some don’t. Either way, the design is yours to keep.
+            </p>
+          </div>
+
+          <div className="w-full">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="bg-white border border-gray-300 rounded-xl p-8 text-center">
+                <div className="w-16 h-16 bg-sky-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                  </svg>
+                </div>
+                <h3 className="text-xl font-bold text-black mb-2">Build Trust</h3>
+                <p className="text-gray-600">Free designs show we know what we're doing and build confidence before any money is involved.</p>
+              </div>
+              <div className="bg-white border border-gray-300 rounded-xl p-8 text-center">
+                <div className="w-16 h-16 bg-sky-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
+                  </svg>
+                </div>
+                <h3 className="text-xl font-bold text-black mb-2">We're Confident</h3>
+                <p className="text-gray-600">We believe in our work, so we offer free designs to show what's possible before you commit.</p>
+              </div>
+              <div className="bg-white border border-gray-300 rounded-xl p-8 text-center">
+                <div className="w-16 h-16 bg-sky-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                  </svg>
+                </div>
+                <h3 className="text-xl font-bold text-black mb-2">Close Faster</h3>
+                <p className="text-gray-600">When customers can visualize the result, they decide faster and with fewer objections.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Services Section */}
       <section id="services" className="py-16 bg-gray-50" aria-labelledby="services-heading">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 id="services-heading" className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Specialties
+              What We Specialize In
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
               Check out the two special services we offer. Yes, they're <span className="text-sky-600 font-medium">real photos</span> taken from projects we've done in Anaheim Hills or nearby Orange County areas.
@@ -396,91 +443,157 @@ export function HomeContent() {
         </div>
       </section>
 
-      {/* My Team Section */}
+      {/* What You Get Section */}
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              My Team
+              What You Get
             </h2>
-              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                We are <span className="text-sky-600 font-medium">fully licensed</span>, reliable, and not afraid to get our hands dirty to deliver quality work you can count on.
-              </p>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              These are <span className="text-sky-600 font-medium">real samples</span> crafted by our designers. You'll get the same level of quality, care, and attention to detail in your own design.
+            </p>
           </div>
 
-          <div className="w-full">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:hidden">
-              <div className="bg-gray-200 overflow-hidden rounded-xl">
-                <Image 
-                  src="/bathroom-team.jpg" 
-                  alt="Bathroom remodeling team at work"
-                  className="w-full h-auto"
-                  width={400}
-                  height={300}
-                  sizes="50vw"
-                />
-              </div>
-              <div className="bg-gray-200 overflow-hidden rounded-xl">
-                <Image 
-                  src="/outdoor-team.jpg" 
-                  alt="Outdoor construction team"
-                  className="w-full h-auto"
-                  width={400}
-                  height={300}
-                  sizes="50vw"
-                />
-              </div>
-              <div className="bg-gray-200 overflow-hidden rounded-xl">
-                <Image 
-                  src="/kitchen-team.jpg" 
-                  alt="Kitchen remodeling team at work"
-                  className="w-full h-auto"
-                  width={400}
-                  height={600}
-                  sizes="50vw"
-                />
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-stretch">
+            {/* Benefits - Left Side */}
+            <div className="bg-gray-50 rounded-xl shadow-lg p-8 h-full flex flex-col justify-center">
+              <div className="space-y-8">
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 bg-sky-600 rounded-full flex items-center justify-center flex-shrink-0">
+                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold text-black mb-2">Custom 3D Design</h3>
+                    <p className="text-gray-600">Custom 3D design tailored to your space</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 bg-sky-600 rounded-full flex items-center justify-center flex-shrink-0">
+                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold text-black mb-2">Material Suggestions</h3>
+                    <p className="text-gray-600">Material suggestions and layout ideas</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 bg-sky-600 rounded-full flex items-center justify-center flex-shrink-0">
+                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold text-black mb-2">Quick Delivery</h3>
+                    <p className="text-gray-600">Delivered in 3 business days</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 bg-sky-600 rounded-full flex items-center justify-center flex-shrink-0">
+                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold text-black mb-2">No Obligation</h3>
+                    <p className="text-gray-600">Yours to keep, no obligation</p>
+                  </div>
+                </div>
               </div>
             </div>
 
-            {/* Desktop Layout: All three images in a row */}
-            <div className="hidden md:grid md:grid-cols-3 gap-6">
-              <div className="bg-gray-200 overflow-hidden rounded-xl">
-                <Image 
-                  src="/bathroom-team.jpg" 
-                  alt="Bathroom remodeling team at work"
-                  className="w-full h-auto"
-                  width={400}
-                  height={300}
-                  sizes="33vw"
-                />
-              </div>
-              <div className="bg-gray-200 overflow-hidden rounded-xl">
-                <Image 
-                  src="/kitchen-team.jpg" 
-                  alt="Kitchen remodeling team at work"
-                  className="w-full h-auto"
-                  width={400}
-                  height={300}
-                  sizes="33vw"
-                />
-              </div>
-              <div className="bg-gray-200 overflow-hidden rounded-xl">
-                <Image 
-                  src="/outdoor-team.jpg" 
-                  alt="Outdoor construction team"
-                  className="w-full h-auto"
-                  width={400}
-                  height={300}
-                  sizes="33vw"
-                />
+            {/* Image Slider - Right Side */}
+            <div className="relative min-h-[400px]">
+              <div className="bg-gray-200 relative overflow-hidden rounded-xl shadow-lg h-full cursor-pointer">
+                <Swiper
+                  modules={[Navigation, Pagination]}
+                  spaceBetween={10}
+                  slidesPerView={1}
+                  navigation={{
+                    nextEl: '.swiper-button-next-whatyouget',
+                    prevEl: '.swiper-button-prev-whatyouget',
+                  }}
+                  pagination={{
+                    el: '.swiper-pagination-whatyouget',
+                    clickable: true,
+                    bulletClass: 'swiper-pagination-bullet',
+                    bulletActiveClass: 'swiper-pagination-bullet-active',
+                  }}
+                  className="h-full"
+                >
+                  {Array.from({ length: 15 }, (_, i) => `/3D/3d-${(i + 1).toString().padStart(2, '0')}.png`).map((image, index) => (
+                    <SwiperSlide key={index}>
+                      <div 
+                        className="w-full h-full cursor-pointer"
+                        onClick={() => {
+                          const threeD3DImages = Array.from({ length: 15 }, (_, i) => `/3D/3d-${(i + 1).toString().padStart(2, '0')}.png`);
+                          openLightbox(threeD3DImages, index);
+                        }}
+                      >
+                        <Image
+                          src={image}
+                          alt={`3D Design example ${index + 1}`}
+                          className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                          loading="lazy"
+                          width={400}
+                          height={300}
+                          sizes="(max-width: 768px) 100vw, 50vw"
+                        />
+                      </div>
+                    </SwiperSlide>
+                  ))}
+                </Swiper>
+                
+                {/* Custom Navigation Buttons */}
+                <button
+                  className="swiper-button-prev-whatyouget absolute left-2 top-1/2 transform -translate-y-1/2 text-white p-2 hover:text-gray-300 transition-colors z-10"
+                  aria-label="Previous image"
+                >
+                  <svg className="w-8 h-8 filter drop-shadow-[0_1px_2px_rgba(0,0,0,0.4)]" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+                  </svg>
+                </button>
+                
+                <button
+                  className="swiper-button-next-whatyouget absolute right-2 top-1/2 transform -translate-y-1/2 text-white p-2 hover:text-gray-300 transition-colors z-10"
+                  aria-label="Next image"
+                >
+                  <svg className="w-8 h-8 filter drop-shadow-[0_1px_2px_rgba(0,0,0,0.4)]" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                  </svg>
+                </button>
+                
+                {/* Custom Pagination */}
+                <div className="swiper-pagination-whatyouget absolute bottom-2 left-1/2 transform -translate-x-1/2 flex gap-1"></div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
+      {/* How It Works Section */}
+      <section className="py-16 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              How It Works
+            </h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              [Content to be added]
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* Before and After Section */}
-      <section id="transformations" className="py-16 bg-gray-50" aria-labelledby="transformations-heading">
+      <section id="transformations" className="py-16 bg-white" aria-labelledby="transformations-heading">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 id="transformations-heading" className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
@@ -535,7 +648,7 @@ export function HomeContent() {
       </section>
 
       {/* More Photos Section */}
-      <section id="gallery" className="py-16 bg-white" aria-labelledby="gallery-heading">
+      <section id="gallery" className="py-16 bg-gray-50" aria-labelledby="gallery-heading">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 id="gallery-heading" className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
@@ -604,16 +717,16 @@ export function HomeContent() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a 
               href="tel:6578880026" 
-              className="bg-white text-black px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors inline-block"
+              className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-black transition-colors"
               aria-label="Call Travis at (657) 888-0026"
             >
               (657) 888-0026
             </a>
             <button 
               onClick={() => setQuoteModalOpen(true)}
-              className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-black transition-colors"
+              className="bg-white text-black px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors inline-block"
             >
-              Request Quote
+              Get Started
             </button>
           </div>
           <div className="mt-8 pt-6 border-t border-gray-600">
@@ -653,7 +766,7 @@ export function HomeContent() {
             <div className="p-6">
               <div className="flex justify-between items-center mb-6">
                 <h3 className="text-2xl font-bold text-gray-900">
-                  {formSubmitted ? 'Thank You!' : 'Get Free Estimate'}
+                  {formSubmitted ? 'Thank You!' : 'Request Free Design'}
                 </h3>
                 <button
                   onClick={closeModal}
@@ -767,6 +880,27 @@ export function HomeContent() {
                   </select>
                 </div>
 
+                <div>
+                  <label htmlFor="budget" className="block text-sm font-medium text-gray-700 mb-2">
+                    Budget <span className="text-red-500">*</span>
+                  </label>
+                  <select
+                    id="budget"
+                    name="budget"
+                    value={quoteForm.budget}
+                    onChange={handleInputChange}
+                    required
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent"
+                  >
+                    <option value="">Select your budget range</option>
+                    <option value="Under 10k">Under $10k</option>
+                    <option value="10-20k">$10k - $20k</option>
+                    <option value="20-30k">$20k - $30k</option>
+                    <option value="40-50k">$40k - $50k</option>
+                    <option value="50k+">$50k+</option>
+                  </select>
+                </div>
+
                 {/* reCAPTCHA */}
                 <div className="py-4">
                   <ReCAPTCHA
@@ -806,7 +940,7 @@ export function HomeContent() {
           {showTooltip && (
             <div className="absolute bottom-full right-0 mb-2 pointer-events-none">
               <div className="bg-white text-gray-900 text-sm px-3 py-2 rounded-lg whitespace-nowrap relative border border-[#CCCCCC]">
-                🛠️ Get Project Estimate
+                🛠️ Submit Your Project
                 {/* Arrow pointing down to center of button with border */}
                 <div className="absolute top-full" style={{right: '22px'}}>
                   <div className="w-0 h-0" style={{borderLeft: '6px solid transparent', borderRight: '6px solid transparent', borderTop: '6px solid #AAAAAA'}}></div>
