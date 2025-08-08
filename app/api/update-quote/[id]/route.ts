@@ -4,6 +4,7 @@ import { Resend } from 'resend';
 interface UpdateQuoteData {
   project: string;
   budget: string;
+  financing: string;
 }
 
 export async function POST(
@@ -12,7 +13,7 @@ export async function POST(
 ) {
   try {
     const body: UpdateQuoteData = await request.json();
-    const { project, budget } = body;
+    const { project, budget, financing } = body;
     const submissionId = (await params).id;
 
     // First, fetch the current submission data to get the name
@@ -56,7 +57,8 @@ export async function POST(
     // According to JotForm API docs: POST /submission/{id}
     const updateData = {
       "16": { "text": project },       // Project interest field
-      "17": { "text": budget }         // Budget field
+      "17": { "text": budget },        // Budget field
+      "21": { "text": financing }      // Financing field
     };
 
     const jotformResponse = await fetch(
@@ -88,6 +90,7 @@ export async function POST(
         <h2>Interest and Budget</h2>
         <p style="font-size: 16px;">Project Interest: <strong style="background-color: #FFFFC5;">${project}</strong></p>
         <p style="font-size: 16px;">Budget: <strong style="background-color: #FFFFC5;">${budget}</strong></p>
+        <p style="font-size: 16px;">Financing: <strong style="background-color: #FFFFC5;">${financing}</strong></p>
         <p><em>Updated at ${new Date().toLocaleString('en-US', { timeZone: 'America/Los_Angeles' })}</em></p>
         
         <div style="margin-top: 20px;">

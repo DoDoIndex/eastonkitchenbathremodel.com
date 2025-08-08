@@ -25,6 +25,7 @@ interface FormStepProps {
     phone: string;
     project: string;
     budget: string;
+    financing: string;
     source: string;
   };
   onInputChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
@@ -103,6 +104,24 @@ function FormStep({
             <option value="60-100k">$60k - $100k</option>
             <option value="100-150k">$100k - $150k</option>
             <option value="150k+">$150k+</option>
+          </select>
+        </div>
+
+        <div>
+          <label htmlFor="financing" className="block text-sm font-medium text-gray-700 mb-2">
+            Do you need Financing? <span className="text-red-500">*</span>
+          </label>
+          <select
+            id="financing"
+            name="financing"
+            value={formData.financing}
+            onChange={onInputChange}
+            required
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent text-gray-900"
+          >
+            <option value="">Select an option</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
           </select>
         </div>
 
@@ -234,6 +253,7 @@ export function HomeContent() {
     phone: '',
     project: '',
     budget: '',
+    financing: '',
     source: ''
   });
   const [formSubmitted, setFormSubmitted] = useState(false);
@@ -412,6 +432,7 @@ export function HomeContent() {
         body: JSON.stringify({
           project: quoteForm.project,
           budget: quoteForm.budget,
+          financing: quoteForm.financing,
         }),
       });
 
@@ -443,6 +464,7 @@ export function HomeContent() {
       phone: '',
       project: '',
       budget: '',
+      financing: '',
       source: ''
     });
     setFormStep(1);
