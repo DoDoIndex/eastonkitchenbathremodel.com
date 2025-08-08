@@ -47,71 +47,79 @@ function FormStep({
   showStepNumbers = false,
   source 
 }: FormStepProps) {
-  if (step === 1) {
+  if (step === 3) {
     return (
-      <form onSubmit={(e) => onFirstSubmit(e, source)} className="space-y-4">
+      <div className="py-12 text-center">
+        <div className="inline-block animate-spin rounded-full h-12 w-12 border-4 border-sky-600 border-t-transparent mb-4" />
+        <p className="text-lg text-gray-600">Redirecting...</p>
+      </div>
+    );
+  }
+
+  if (step === 2) {
+    return (
+      <form onSubmit={onSecondSubmit} className="space-y-4">
         {showStepNumbers && (
           <div className="text-center mb-4">
-            <span className="text-sm text-gray-500">Step 1 of 2</span>
+            <span className="text-sm text-gray-500">Step 2 of 3</span>
           </div>
         )}
-        
+
         <div>
-          <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
-            Full Name <span className="text-red-500">*</span>
+          <label htmlFor="project" className="block text-sm font-medium text-gray-700 mb-2">
+            Project Interest <span className="text-red-500">*</span>
           </label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            value={formData.name}
+          <select
+            id="project"
+            name="project"
+            value={formData.project}
             onChange={onInputChange}
             required
             className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent text-gray-900"
-            placeholder="Enter your full name"
-          />
+          >
+            <option value="">Select a project type</option>
+            <option value="Kitchen">Kitchen Remodeling</option>
+            <option value="Bathroom">Bathroom Remodeling</option>
+            <option value="Kitchen & Bath">Kitchen & Bathroom</option>
+          </select>
         </div>
 
         <div>
-          <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-            Email Address <span className="text-red-500">*</span>
+          <label htmlFor="budget" className="block text-sm font-medium text-gray-700 mb-2">
+            Budget <span className="text-red-500">*</span>
           </label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={formData.email}
+          <select
+            id="budget"
+            name="budget"
+            value={formData.budget}
             onChange={onInputChange}
             required
             className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent text-gray-900"
-            placeholder="Enter your email address"
-          />
-        </div>
-
-        <div>
-          <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
-            Phone Number <span className="text-red-500">*</span>
-          </label>
-          <input
-            type="tel"
-            id="phone"
-            name="phone"
-            value={formData.phone}
-            onChange={onInputChange}
-            required
-            maxLength={14}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent text-gray-900"
-            placeholder="(000) 000-0000"
-          />
+          >
+            <option value="">Select your budget range</option>
+            <option value="Under 25k">Under $25k</option>
+            <option value="25-35k">$25k - $35k</option>
+            <option value="35-60k">$35k - $60k</option>
+            <option value="60-100k">$60k - $100k</option>
+            <option value="100-150k">$100k - $150k</option>
+            <option value="150k+">$150k+</option>
+          </select>
         </div>
 
         <div className="pt-4">
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full px-4 py-2 bg-sky-600 text-white rounded-lg hover:bg-sky-700 transition-colors font-semibold disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-sky-600"
+            className="w-full px-4 py-2 bg-sky-600 text-white rounded-lg hover:bg-sky-700 transition-colors font-semibold disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-sky-600 flex items-center justify-center space-x-2"
           >
-            {isSubmitting ? 'Submitting...' : 'Next'}
+            {isSubmitting ? (
+              <>
+                <div className="inline-block animate-spin rounded-full h-5 w-5 border-2 border-white border-t-transparent" />
+                <span>Submitting...</span>
+              </>
+            ) : (
+              'Claim Free Design'
+            )}
           </button>
         </div>
       </form>
@@ -119,61 +127,76 @@ function FormStep({
   }
 
   return (
-    <form onSubmit={onSecondSubmit} className="space-y-4">
+    <form onSubmit={(e) => onFirstSubmit(e, source)} className="space-y-4">
       {showStepNumbers && (
         <div className="text-center mb-4">
-          <span className="text-sm text-gray-500">Step 2 of 2</span>
+          <span className="text-sm text-gray-500">Step 1 of 3</span>
         </div>
       )}
-
+      
       <div>
-        <label htmlFor="project" className="block text-sm font-medium text-gray-700 mb-2">
-          Project Interest <span className="text-red-500">*</span>
+        <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
+          Full Name <span className="text-red-500">*</span>
         </label>
-        <select
-          id="project"
-          name="project"
-          value={formData.project}
+        <input
+          type="text"
+          id="name"
+          name="name"
+          value={formData.name}
           onChange={onInputChange}
           required
           className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent text-gray-900"
-        >
-          <option value="">Select a project type</option>
-          <option value="Kitchen">Kitchen Remodeling</option>
-          <option value="Bathroom">Bathroom Remodeling</option>
-          <option value="Kitchen & Bath">Kitchen & Bathroom</option>
-        </select>
+          placeholder="Enter your full name"
+        />
       </div>
 
       <div>
-        <label htmlFor="budget" className="block text-sm font-medium text-gray-700 mb-2">
-          Budget <span className="text-red-500">*</span>
+        <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+          Email Address <span className="text-red-500">*</span>
         </label>
-        <select
-          id="budget"
-          name="budget"
-          value={formData.budget}
+        <input
+          type="email"
+          id="email"
+          name="email"
+          value={formData.email}
           onChange={onInputChange}
           required
           className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent text-gray-900"
-        >
-          <option value="">Select your budget range</option>
-          <option value="Under 25k">Under $25k</option>
-          <option value="25-35k">$25k - $35k</option>
-          <option value="35-60k">$35k - $60k</option>
-          <option value="60-100k">$60k - $100k</option>
-          <option value="100-150k">$100k - $150k</option>
-          <option value="150k+">$150k+</option>
-        </select>
+          placeholder="Enter your email address"
+        />
+      </div>
+
+      <div>
+        <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
+          Phone Number <span className="text-red-500">*</span>
+        </label>
+        <input
+          type="tel"
+          id="phone"
+          name="phone"
+          value={formData.phone}
+          onChange={onInputChange}
+          required
+          maxLength={14}
+          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent text-gray-900"
+          placeholder="(000) 000-0000"
+        />
       </div>
 
       <div className="pt-4">
         <button
           type="submit"
           disabled={isSubmitting}
-          className="w-full px-4 py-2 bg-sky-600 text-white rounded-lg hover:bg-sky-700 transition-colors font-semibold disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-sky-600"
+          className="w-full px-4 py-2 bg-sky-600 text-white rounded-lg hover:bg-sky-700 transition-colors font-semibold disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-sky-600 flex items-center justify-center space-x-2"
         >
-          {isSubmitting ? 'Submitting...' : 'Claim Free Design'}
+          {isSubmitting ? (
+            <>
+              <div className="inline-block animate-spin rounded-full h-5 w-5 border-2 border-white border-t-transparent" />
+              <span>Submitting...</span>
+            </>
+          ) : (
+            'Next'
+          )}
         </button>
       </div>
     </form>
@@ -215,6 +238,7 @@ export function HomeContent() {
   });
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isRedirecting, setIsRedirecting] = useState(false);
   const [showTooltip, setShowTooltip] = useState(false);
   const recaptchaRef = useRef<ReCAPTCHA>(null);
 
@@ -392,9 +416,11 @@ export function HomeContent() {
       });
 
       if (response.ok) {
-        toast.success('Thank you! We\'ll contact you soon.');
-        // Redirect to upload page
-        window.location.href = `/upload/${submissionId}`;
+        // Move to step 3 (redirecting) and redirect after 3 seconds
+        setFormStep(3);
+        setTimeout(() => {
+          window.location.href = `/upload/${submissionId}`;
+        }, 3000);
       } else {
         toast.error('There was an error submitting your request. Please try again.');
       }
@@ -439,6 +465,7 @@ export function HomeContent() {
     setTimeout(() => {
       setFormSubmitted(false);
       setIsSubmitting(false);
+      setIsRedirecting(false);
       // Don't reset formStep - keep current step
       // Don't reset submissionId - keep current submission
       recaptchaRef.current?.reset();
@@ -1079,7 +1106,7 @@ export function HomeContent() {
             <div className="p-6">
               <div className="flex justify-between items-center mb-6">
                 <h3 className="text-2xl font-bold text-gray-900">
-                  {formSubmitted ? 'Thank You!' : 'Request Free Design'}
+                  {showSuccess ? 'Thank You!' : 'Request Free Design'}
                 </h3>
                 <button
                   onClick={closeModal}
@@ -1090,38 +1117,7 @@ export function HomeContent() {
                 </button>
               </div>
 
-              {formSubmitted ? (
-                // Success Component
-                <div className="text-center py-2">
-                  <div className="mb-6">
-                    <div className="mx-auto w-16 h-16 bg-sky-100 rounded-full flex items-center justify-center mb-4">
-                      <svg className="w-8 h-8 text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                      </svg>
-                    </div>
-                    <h4 className="text-xl font-semibold text-gray-900 mb-1">Request Submitted!</h4>
-                    <p className="text-gray-600">
-                      Thank you for your interest. We'll get back to you soon to discuss your project.
-                    </p>
-                  </div>
-                  <div className="border-t border-gray-200 pt-6">
-                    <div className="flex flex-col sm:flex-row gap-3">
-                      <button
-                        onClick={closeModal}
-                        className="flex-1 border border-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-50 transition-colors"
-                      >
-                        Close
-                      </button>
-                      <a
-                        href="tel:(657) 888-0026"
-                        className="flex-1 bg-black text-white px-4 py-2 rounded-lg hover:bg-sky-700 transition-colors text-center font-semibold"
-                      >
-                        (657) 888-0026
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              ) : (
+              {(
                 // 2-Step Form Component
                 <FormStep
                     step={formStep}
