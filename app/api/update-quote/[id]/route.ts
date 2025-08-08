@@ -8,7 +8,7 @@ interface UpdateQuoteData {
 
 export async function POST(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const body: UpdateQuoteData = await request.json();

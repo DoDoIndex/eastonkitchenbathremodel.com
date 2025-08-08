@@ -2,9 +2,9 @@ import UploadContent from './UploadContent';
 import { Client } from 'basic-ftp';
 
 interface UploadPageProps {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
 interface ExistingFile {

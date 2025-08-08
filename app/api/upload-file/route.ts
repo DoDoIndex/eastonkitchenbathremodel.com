@@ -33,7 +33,6 @@ export async function POST(request: NextRequest) {
 
     // Check environment variables
     if (!process.env.FTP_HOST || !process.env.FTP_USERNAME || !process.env.FTP_PASSWORD) {
-      console.error('[FTP] Missing environment variables');
       return NextResponse.json(
         { error: 'Server configuration error' },
         { status: 500 }
@@ -44,8 +43,6 @@ export async function POST(request: NextRequest) {
     client.ftp.verbose = true;
 
     try {
-      // Connect to FTP server
-      console.log(`[FTP] Uploading ${file.name} for submission: ${submissionId}`);
       await client.access({
         host: process.env.FTP_HOST!,
         user: process.env.FTP_USERNAME!,
@@ -73,7 +70,6 @@ export async function POST(request: NextRequest) {
       // Upload the file using the stream
       await client.uploadFrom(stream, file.name);
       
-      console.log(`[FTP] Successfully uploaded ${file.name}`);
 
       return NextResponse.json(
         { 
@@ -86,7 +82,6 @@ export async function POST(request: NextRequest) {
       );
 
     } catch (ftpError) {
-      console.error('[FTP] Upload error:', ftpError);
       return NextResponse.json(
         { error: 'Failed to upload file to server' },
         { status: 500 }
@@ -96,7 +91,6 @@ export async function POST(request: NextRequest) {
     }
 
   } catch (error) {
-    console.error('[API] Upload error:', error);
     return NextResponse.json(
       { error: 'Server error during upload' },
       { status: 500 }
