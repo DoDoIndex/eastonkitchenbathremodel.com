@@ -55,7 +55,7 @@ export async function POST(request: NextRequest) {
         await client.cd(submissionId);
       } catch (error) {
         // Folder doesn't exist, create it
-        await client.ensureDir(submissionId);
+        await client.mkdir(submissionId);
         await client.cd(submissionId);
       }
 
