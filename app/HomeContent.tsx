@@ -1106,7 +1106,7 @@ export function HomeContent() {
             <div className="p-6">
               <div className="flex justify-between items-center mb-6">
                 <h3 className="text-2xl font-bold text-gray-900">
-                  {showSuccess ? 'Thank You!' : 'Request Free Design'}
+                  Request Free Design
                 </h3>
                 <button
                   onClick={closeModal}
