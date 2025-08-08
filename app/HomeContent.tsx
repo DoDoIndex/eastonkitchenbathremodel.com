@@ -1,6 +1,13 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
+
+// Google Ads conversion tracking
+declare global {
+  interface Window {
+    gtag: (command: string, targetId: string, config?: any) => void;
+  }
+}
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
 import Lightbox from 'yet-another-react-lightbox';
@@ -398,6 +405,16 @@ export function HomeContent() {
       if (response.ok) {
         const result = await response.json();
         setSubmissionId(result.submissionId);
+        
+        // Google Ads conversion tracking
+        if (typeof window !== 'undefined' && window.gtag) {
+          window.gtag('event', 'conversion', {
+            'send_to': 'AW-16598983555/G1hqCOOok4oaEIPHges9',
+            'value': 1.0,
+            'currency': 'USD'
+          });
+        }
+        
         // Move to step 2
         setFormStep(2);
       } else {
