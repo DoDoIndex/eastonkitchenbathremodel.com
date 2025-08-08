@@ -80,17 +80,30 @@ export async function POST(request: NextRequest) {
         },
         { status: 200 }
       );
-
     } catch (ftpError) {
-      return NextResponse.json(
-        { error: 'Failed to upload file to server' },
-        { status: 500 }
-      );
+        console.error('FTP Error:', {
+          message: ftpError instanceof Error ? ftpError.message : 'Unknown error',
+          name: ftpError instanceof Error ? ftpError.name : 'Unknown',
+          stack: ftpError instanceof Error ? ftpError.stack : undefined,
+          error: ftpError // Log the raw error object
+        });
+        
+        return NextResponse.json(
+          { error: 'Failed to upload file to server' },
+          { status: 500 }
+        );
     } finally {
       client.close();
     }
 
   } catch (error) {
+    console.error('Server Error:', {
+      message: error instanceof Error ? error.message : 'Unknown error',
+      name: error instanceof Error ? error.name : 'Unknown',
+      stack: error instanceof Error ? error.stack : undefined,
+      error: error // Log the raw error object
+    });
+
     return NextResponse.json(
       { error: 'Server error during upload' },
       { status: 500 }
