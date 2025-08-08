@@ -507,13 +507,13 @@ export function HomeContent() {
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
           <div className="flex flex-col md:flex-row items-center gap-4 md:gap-12 h-full">
             {/* Text Content */}
-            <div className="w-full lg:w-2/5 text-center lg:text-left flex flex-col h-full py-8 lg:py-24">
-              <h1 className="text-2xl lg:text-3xl mb-4 lg:mb-8 max-w-4xl lg:max-w-lg font-sans">
-                Get your Dream Kitchen or Bathroom designed 
-                <span className="text-sky-500 font-semibold ml-2">for FREE</span>.
+            <div className="w-full lg:w-2/5 text-center md:text-left flex flex-col h-full py-8 lg:py-24">
+              <h1 className="text-2xl md:text-3xl mb-4 md:mb-8 max-w-4xl lg:max-w-lg font-sans">
+                Get your Kitchen & Bathroom designed by 
+                <span className="text-sky-500 font-semibold mx-2 inline-block">real professionals.</span><span className="text-white">No AI, no commitment.</span>
               </h1>
-              <p className="text-lg lg:text-xl text-gray-400 max-w-4xl lg:max-w-xl">
-                We <span className="text-white">normally charge $1,500</span> for this design. For <span className="text-white">{new Date().toLocaleDateString('en-US', { month: 'long' })}, it's FREE</span>. You'll see exactly what your remodel will look like, <span className="text-white">before spending money</span>.
+              <p className="text-lg md:text-xl text-gray-400 max-w-4xl lg:max-w-xl">
+                We <span className="text-white">normally charge $1,500</span> for this design package. But for the month of <span className="text-white">{new Date().toLocaleDateString('en-US', { month: 'long' })}, it's FREE</span>. You'll see exactly what your remodel will look like, <span className="text-white">before spending a penny</span>.
               </p>
             </div>
             
