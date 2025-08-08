@@ -65,12 +65,10 @@ export async function POST(request: NextRequest) {
 
     if (!jotformResponse.ok) {
       const errorData = await jotformResponse.json();
-      console.error('JotForm error:', errorData);
       throw new Error('Failed to submit to JotForm');
     }
 
     const jotformResult = await jotformResponse.json();
-    console.log('Full JotForm response:', JSON.stringify(jotformResult, null, 2));
     
     // Extract the submission ID from JotForm response
     let submissionId = null;
@@ -78,7 +76,6 @@ export async function POST(request: NextRequest) {
       submissionId = jotformResult.content[0]?.submissionID;
     }
 
-    console.log('Extracted submission ID:', submissionId);
     console.log('Quote request submitted to JotForm successfully:', {
       name,
       email,
@@ -117,7 +114,6 @@ export async function POST(request: NextRequest) {
     );
 
   } catch (error) {
-    console.error('Quote form error:', error);
     return NextResponse.json(
       { error: 'Failed to submit quote request' },
       { status: 500 }

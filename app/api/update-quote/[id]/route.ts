@@ -15,8 +15,6 @@ export async function POST(
     const { project, budget } = body;
     const submissionId = (await params).id;
 
-    console.log('Updating JotForm submission:', submissionId);
-
     // First, fetch the current submission data to get the name
     const fetchResponse = await fetch(
       `https://api.jotform.com/submission/${submissionId}?apiKey=${process.env.JOTFORM_API_KEY}`,
@@ -30,20 +28,15 @@ export async function POST(
 
     if (!fetchResponse.ok) {
       const errorData = await fetchResponse.json();
-      console.error('JotForm fetch error:', errorData);
       throw new Error('Failed to fetch JotForm submission');
     }
 
     const fetchResult = await fetchResponse.json();
-    console.log('JotForm fetch result:', JSON.stringify(fetchResult, null, 2));
     
     const submissionData = fetchResult.content;
-    console.log('Submission data:', JSON.stringify(submissionData, null, 2));
     
     // Log the answers structure specifically
     if (submissionData && submissionData.answers) {
-      console.log('Answers object:', JSON.stringify(submissionData.answers, null, 2));
-      console.log('Field 5 (name field):', JSON.stringify(submissionData.answers['5'], null, 2));
     }
     
     // Extract name from the submission data (field ID 5 is the name field)
@@ -58,7 +51,6 @@ export async function POST(
       }
     }
     
-    console.log('Extracted name for email subject:', name);
 
     // Update the JotForm submission using their API
     // According to JotForm API docs: POST /submission/{id}
@@ -80,12 +72,10 @@ export async function POST(
 
     if (!jotformResponse.ok) {
       const errorData = await jotformResponse.json();
-      console.error('JotForm update error:', errorData);
       throw new Error('Failed to update JotForm submission');
     }
 
     const jotformResult = await jotformResponse.json();
-    console.log('JotForm submission updated successfully:', jotformResult);
 
     // Send update email using Resend
     const resend = new Resend(process.env.RESEND_API_KEY);
@@ -107,7 +97,6 @@ export async function POST(
       submissionId: submissionId 
     });
   } catch (error) {
-    console.error('Error updating quote:', error);
     return NextResponse.json(
       { error: 'Failed to update quote' },
       { status: 500 }
