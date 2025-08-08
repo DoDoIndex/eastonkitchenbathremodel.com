@@ -2,12 +2,8 @@
 
 import { useState, useRef, useEffect } from 'react';
 
-interface ExistingFile {
-  name: string;
-  size: number;
-  modifiedAt: Date;
-  type: 'file' | 'directory';
-}
+// Remote files are represented as absolute URLs returned by /api/get-files/[id]
+type RemoteFileUrl = string;
 
 interface UploadingFile {
   file: File;
@@ -18,11 +14,10 @@ interface UploadingFile {
 
 interface UploadContentProps {
   submissionId: string;
-  existingFiles: ExistingFile[];
   initialNotes: string;
 }
 
-export default function UploadContent({ submissionId, existingFiles, initialNotes }: UploadContentProps) {
+export default function UploadContent({ submissionId, initialNotes }: UploadContentProps) {
   const [uploadingFiles, setUploadingFiles] = useState<UploadingFile[]>([]);
   const [notes, setNotes] = useState(initialNotes);
   const [isDownloading, setIsDownloading] = useState(false);
@@ -31,6 +26,7 @@ export default function UploadContent({ submissionId, existingFiles, initialNote
   const [deleteConfirm, setDeleteConfirm] = useState<{ type: 'existing' | 'queue', item: any } | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
   const [isSavingNotes, setIsSavingNotes] = useState(false);
+  const [files, setFiles] = useState<RemoteFileUrl[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Handle escape key to close delete confirmation
@@ -44,6 +40,40 @@ export default function UploadContent({ submissionId, existingFiles, initialNote
     document.addEventListener('keydown', handleEscape);
     return () => document.removeEventListener('keydown', handleEscape);
   }, [deleteConfirm]);
+
+  // Helpers for file URL and name
+  const getFileNameFromUrl = (url: string) => {
+    try {
+      const { pathname } = new URL(url);
+      const segments = pathname.split('/');
+      return segments[segments.length - 1] || url;
+    } catch {
+      const parts = url.split('/');
+      return parts[parts.length - 1] || url;
+    }
+  };
+
+  const refreshFiles = async () => {
+    try {
+      const res = await fetch(`/api/get-files/${encodeURIComponent(submissionId)}`, {
+        method: 'GET',
+        headers: { 'Accept': 'application/json' },
+      });
+      if (!res.ok) return;
+      const data = await res.json().catch(() => null as any);
+      if (data && Array.isArray(data.files)) {
+        setFiles(data.files as string[]);
+      }
+    } catch {
+      // ignore
+    }
+  };
+
+  // Initial load
+  useEffect(() => {
+    refreshFiles();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [submissionId]);
 
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -121,7 +151,8 @@ export default function UploadContent({ submissionId, existingFiles, initialNote
     try {
       if (deleteConfirm.type === 'existing') {
         // Call API to delete file from FTP server
-        const response = await fetch(`/api/delete-file?fileName=${encodeURIComponent(deleteConfirm.item)}&submissionId=${encodeURIComponent(submissionId)}`, {
+        const fileName = getFileNameFromUrl(deleteConfirm.item);
+        const response = await fetch(`/api/delete-file?fileName=${encodeURIComponent(fileName)}&submissionId=${encodeURIComponent(submissionId)}`, {
           method: 'DELETE',
         });
 
@@ -130,10 +161,12 @@ export default function UploadContent({ submissionId, existingFiles, initialNote
           throw new Error(errorData.error || 'Failed to delete file');
         }
 
-        console.log('File deleted from FTP server successfully');
+        console.log('File deleted successfully');
         
         // Remove from frontend display - no reload needed
-        setDeletedFiles(prev => new Set([...prev, deleteConfirm.item]));
+        setDeletedFiles(prev => new Set([...prev, fileName]));
+        // Also refresh list from server
+        await refreshFiles();
       } else if (deleteConfirm.type === 'queue') {
         // Just remove from queue (no FTP call needed for pending uploads)
         setUploadingFiles(prev => prev.filter(uf => uf !== deleteConfirm.item));
@@ -206,21 +239,11 @@ export default function UploadContent({ submissionId, existingFiles, initialNote
       // Parse the success response
       const result = await response.json();
 
-      // Handle success - just refresh to show new files
-      if (result.success) {
-        setTimeout(() => {
-          window.location.reload();
-        }, 500);
-      } else {
-        // If no success flag, just mark as completed in queue
-        setUploadingFiles(prev => 
-          prev.map(uf => 
-            uf === uploadingFile 
-              ? { ...uf, progress: 100, status: 'completed' as const }
-              : uf
-          )
-        );
-      }
+      // Remove item from queue after successful upload
+      setUploadingFiles(prev => prev.filter(uf => uf.file !== uploadingFile.file));
+
+      // Re-fetch files to include the newly uploaded one
+      await refreshFiles();
 
     } catch (error) {
       console.error('Upload error:', error);
@@ -237,7 +260,7 @@ export default function UploadContent({ submissionId, existingFiles, initialNote
       // Update status to error
       setUploadingFiles(prev => 
         prev.map(uf => 
-          uf === uploadingFile 
+          uf.file === uploadingFile.file
             ? { ...uf, status: 'error' as const, error: errorMessage }
             : uf
         )
@@ -262,7 +285,7 @@ export default function UploadContent({ submissionId, existingFiles, initialNote
   };
 
   const handleDownloadAll = async () => {
-    if (existingFiles.length === 0) return;
+    if (files.length === 0) return;
     
     setIsDownloading(true);
     
@@ -287,7 +310,7 @@ export default function UploadContent({ submissionId, existingFiles, initialNote
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12 px-4">
+    <div className="min-h-screen bg-gray-50 py-12 px-4 relative">
       <div className="max-w-2xl mx-auto">
         <div className="bg-white rounded-xl shadow-lg p-8">
           <div className="text-center mb-8">
@@ -303,11 +326,11 @@ export default function UploadContent({ submissionId, existingFiles, initialNote
           </div>
 
           <div className="space-y-6">
-            {/* Existing Files from FTP */}
-            {existingFiles.filter(file => !deletedFiles.has(file.name)).length > 0 && (
+            {/* Existing Files (fetched via API) */}
+            {files.filter(url => !deletedFiles.has(getFileNameFromUrl(url))).length > 0 && (
               <div className="space-y-3">
-                <div className="flex items-center justify-between">
-                  <h3 className="font-semibold text-gray-900">Uploaded Files ({existingFiles.filter(file => !deletedFiles.has(file.name)).length})</h3>
+                <div className="flex md:flex-row flex-col gap-2 pb-2 items-center justify-between">
+                  <h3 className="font-semibold text-gray-900">Uploaded Files ({files.filter(url => !deletedFiles.has(getFileNameFromUrl(url))).length})</h3>
                   <button
                     onClick={handleDownloadAll}
                     disabled={isDownloading}
@@ -332,14 +355,16 @@ export default function UploadContent({ submissionId, existingFiles, initialNote
                   </button>
                 </div>
                 <div className="space-y-2">
-                  {existingFiles.filter(file => !deletedFiles.has(file.name)).map((file, index) => (
-                    <div key={index} className="flex items-center justify-between p-3 bg-blue-50 rounded-lg border border-blue-200">
-                      <div className="flex items-center space-x-3">
-                        {isImageFile(file.name) ? (
-                          <div className="w-12 h-12 rounded-lg overflow-hidden border border-blue-200">
+                  {files.filter(url => !deletedFiles.has(getFileNameFromUrl(url))).map((url, index) => {
+                    const fileName = getFileNameFromUrl(url);
+                    return (
+                    <div key={index} className="flex items-start justify-between p-3 bg-blue-50 rounded-lg border border-blue-200">
+                      <div className="flex items-start space-x-3 flex-1 min-w-0">
+                        {isImageFile(fileName) ? (
+                          <div className="w-12 h-12 rounded-lg overflow-hidden border border-blue-200 shrink-0">
                             <img
-                              src={`http://ppc-img.breakproject.com/${submissionId}/${file.name}`}
-                              alt={file.name}
+                              src={url}
+                              alt={fileName}
                               className="w-full h-full object-cover"
                               onError={(e) => {
                                 // Fallback to file icon if image fails to load
@@ -357,22 +382,20 @@ export default function UploadContent({ submissionId, existingFiles, initialNote
                             </div>
                           </div>
                         ) : (
-                          <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                          <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center shrink-0">
                             <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                             </svg>
                           </div>
                         )}
-                        <div>
-                          <p className="font-medium text-gray-900">{file.name}</p>
-                          <p className="text-sm text-gray-500">
-                            {formatFileSize(file.size)} • {file.modifiedAt.toLocaleDateString()}
-                          </p>
+                        <div className="min-w-0">
+                          <p className="font-medium text-gray-900 whitespace-normal break-all">{fileName}</p>
+                          {/* No size/date data available from API */}
                         </div>
                       </div>
-                      <div className="flex items-center space-x-2">
+                      <div className="flex items-center space-x-2 shrink-0 ml-3">
                         <a
-                          href={`http://ppc-img.breakproject.com/${submissionId}/${file.name}`}
+                          href={url}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="text-blue-600 text-sm font-medium hover:text-blue-800 hover:underline transition-colors"
@@ -380,7 +403,7 @@ export default function UploadContent({ submissionId, existingFiles, initialNote
                           View
                         </a>
                         <button
-                          onClick={() => showDeleteConfirm('existing', file.name)}
+                          onClick={() => showDeleteConfirm('existing', url)}
                           className="text-red-500 hover:text-red-700 p-1 transition-colors"
                           title="Delete file"
                         >
@@ -390,7 +413,8 @@ export default function UploadContent({ submissionId, existingFiles, initialNote
                         </button>
                       </div>
                     </div>
-                  ))}
+                    );
+                  })}
                 </div>
               </div>
             )}
@@ -409,16 +433,13 @@ export default function UploadContent({ submissionId, existingFiles, initialNote
                 onClick={() => fileInputRef.current?.click()}
                 className="bg-sky-600 text-white px-8 py-3 rounded-lg hover:bg-sky-700 transition-colors font-semibold text-lg flex items-center space-x-2 mx-auto"
               >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                <svg className="w-6 h-6" viewBox="0 0 640 640" aria-hidden="true">
+                  <path fill="currentColor" d="M129.5 464L179.5 304L558.9 304L508.9 464L129.5 464zM320.2 512L509 512C530 512 548.6 498.4 554.8 478.3L604.8 318.3C614.5 287.4 591.4 256 559 256L179.6 256C158.6 256 140 269.6 133.8 289.7L112.2 358.4L112.2 160C112.2 151.2 119.4 144 128.2 144L266.9 144C270.4 144 273.7 145.1 276.5 147.2L314.9 176C328.7 186.4 345.6 192 362.9 192L480.2 192C489 192 496.2 199.2 496.2 208L544.2 208C544.2 172.7 515.5 144 480.2 144L362.9 144C356 144 349.2 141.8 343.7 137.6L305.3 108.8C294.2 100.5 280.8 96 266.9 96L128.2 96C92.9 96 64.2 124.7 64.2 160L64.2 448C64.2 483.3 92.9 512 128.2 512L320.2 512z" />
                 </svg>
-                <span>Choose Files to Upload</span>
+                <span>Select Files</span>
               </button>
               <p className="text-sm text-gray-500 mt-3">
                 Supported formats: JPG, PNG, PDF (Max 10MB per file)
-              </p>
-              <p className="text-xs text-gray-400 mt-1">
-                Files will upload immediately after selection
               </p>
             </div>
 
@@ -506,8 +527,8 @@ export default function UploadContent({ submissionId, existingFiles, initialNote
 
             {/* Delete Confirmation Modal */}
             {deleteConfirm && (
-              <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-                <div className="bg-white rounded-lg p-6 max-w-md w-full mx-4 shadow-xl">
+              <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 top-0 left-0 right-0 bottom-0 w-screen h-screen min-h-screen" style={{ margin: 0, padding: 0 }}>
+                <div className="bg-white rounded-lg p-6 max-w-md mx-4 shadow-xl w-[450px] max-w-[90vw]">
                   <div className="flex items-center space-x-3 mb-4">
                     <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center">
                       <svg className="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -525,7 +546,7 @@ export default function UploadContent({ submissionId, existingFiles, initialNote
                       Are you sure you want to delete{' '}
                       <span className="font-medium">
                         {deleteConfirm.type === 'existing' 
-                          ? deleteConfirm.item 
+                          ? getFileNameFromUrl(deleteConfirm.item)
                           : deleteConfirm.item.file.name}
                       </span>
                       ?
@@ -578,14 +599,14 @@ export default function UploadContent({ submissionId, existingFiles, initialNote
                 className="w-full p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-sky-500 resize-vertical min-h-[120px]"
                 rows={5}
               />
-              <div className="flex items-center justify-between">
+              <div className="flex md:flex-row flex-col gap-2 items-center justify-between">
                 <p className="text-xs text-gray-500">
                   Share your vision, style preferences, color choices, or any specific requirements.
                 </p>
                 <button
                   onClick={saveNotes}
                   disabled={isSavingNotes}
-                  className="bg-sky-600 text-white px-4 py-2 rounded-lg hover:bg-sky-700 transition-colors font-medium text-sm disabled:opacity-50 disabled:cursor-not-allowed flex items-center space-x-2"
+                  className="bg-sky-600 text-white w-full md:w-auto items-center justify-center px-4 py-2 rounded-lg hover:bg-sky-700 transition-colors font-medium text-sm disabled:opacity-50 disabled:cursor-not-allowed flex items-center space-x-2"
                 >
                   {isSavingNotes ? (
                     <>

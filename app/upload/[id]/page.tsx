@@ -1,5 +1,4 @@
 import UploadContent from './UploadContent';
-import { Client } from 'basic-ftp';
 
 interface UploadPageProps {
   params: Promise<{
@@ -7,69 +6,7 @@ interface UploadPageProps {
   }>;
 }
 
-interface ExistingFile {
-  name: string;
-  size: number;
-  modifiedAt: Date;
-  type: 'file' | 'directory';
-}
-
-async function getExistingFiles(submissionId: string): Promise<ExistingFile[]> {
-  const existingFiles: ExistingFile[] = [];
-
-  
-  // Check if environment variables are set
-  if (!process.env.FTP_HOST || !process.env.FTP_USERNAME || !process.env.FTP_PASSWORD) {
-    return existingFiles;
-  }
-
-  const client = new Client();
-
-  try {
-    // Connect to FTP server
-    await client.access({
-      host: process.env.FTP_HOST!,
-      user: process.env.FTP_USERNAME!,
-      password: process.env.FTP_PASSWORD!,
-      secure: false // Set to true if using FTPS
-    });
-
-    // Get current working directory
-    const currentDir = await client.pwd();
-
-    // Check if folder exists, create if it doesn't
-    try {
-      await client.cd(submissionId);
-    } catch (error) {
-      // Folder doesn't exist, just return empty array
-      // The folder will be created when the first file is uploaded
-      return existingFiles;
-    }
-
-    // Get current directory after navigation
-    const finalDir = await client.pwd();
-
-    // List files in the directory
-    const files = await client.list();
-    
-    for (const file of files) {
-      existingFiles.push({
-        name: file.name,
-        size: file.size,
-        modifiedAt: file.modifiedAt || new Date(),
-        type: file.isDirectory ? 'directory' : 'file'
-      });
-    }
-
-  } catch (error) {
-    console.error('[FTP] Error details:', error);
-    // If FTP fails, return empty array (don't break the page)
-  } finally {
-    client.close();
-  }
-
-  return existingFiles;
-}
+// All FTP-related logic has been removed. Files will be fetched client-side via /api/get-files/[id].
 
 async function getExistingNotes(submissionId: string): Promise<string> {
   try {
@@ -114,29 +51,16 @@ async function getExistingNotes(submissionId: string): Promise<string> {
 export default async function UploadPage({ params }: UploadPageProps) {
   const { id } = await params;
   
-  // Add timeout to FTP call to prevent hanging
-  let existingFiles: ExistingFile[] = [];
   let existingNotes: string = '';
   
   try {
-    // Fetch both files and notes in parallel
-    const [filesResult, notesResult] = await Promise.all([
-      Promise.race([
-        getExistingFiles(id),
-        new Promise<ExistingFile[]>((_, reject) => 
-          setTimeout(() => reject(new Error('FTP timeout')), 10000)
-        )
-      ]),
-      getExistingNotes(id)
-    ]);
-    
-    existingFiles = filesResult;
+    // Fetch notes only on the server; files are loaded on the client
+    const notesResult = await getExistingNotes(id);
     existingNotes = notesResult;
   } catch (error) {
     // Continue with empty array/string if fetching fails
-    existingFiles = [];
     existingNotes = '';
   }
   
-  return <UploadContent submissionId={id} existingFiles={existingFiles} initialNotes={existingNotes} />;
+  return <UploadContent submissionId={id} initialNotes={existingNotes} />;
 }
