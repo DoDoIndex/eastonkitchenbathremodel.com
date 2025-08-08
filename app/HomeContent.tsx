@@ -510,7 +510,7 @@ export function HomeContent() {
             <div className="w-full lg:w-2/5 text-center md:text-left flex flex-col h-full py-8 lg:py-24">
               <h1 className="text-xl md:text-3xl mb-4 md:mb-8 max-w-4xl lg:max-w-lg font-sans" style={{ lineHeight: '1.45' }}>
                 Get your Kitchen & Bathroom designed by 
-                <span className="text-sky-500 font-semibold mx-2 inline-block">real professionals.</span><span className="text-white">No AI, no commitment.</span>
+                <span className="text-sky-500 font-semibold mx-2 inline-block">real professionals.</span><span className="text-white inline-block">No AI, no commitment.</span>
               </h1>
               <p className="text-base md:text-xl text-gray-400 max-w-4xl lg:max-w-xl">
                 We <span className="text-white">normally charge $1,500</span> for this design package. But for the month of <span className="text-white">{new Date().toLocaleDateString('en-US', { month: 'long' })}, it's FREE</span>. You'll see exactly what your remodel will look like, <span className="text-white">before spending a penny</span>.
