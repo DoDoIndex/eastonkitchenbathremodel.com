@@ -50,24 +50,32 @@ export async function POST(request: NextRequest) {
         secure: false
       });
 
-      // Ensure the submission folder exists
+      // Try to create directory first (ignore error if it exists)
+      try {
+        await client.send(`MKD ${submissionId}`);
+      } catch (error) {
+        // Ignore directory exists error
+      }
+
+      // Now try to enter the directory
       try {
         await client.cd(submissionId);
       } catch (error) {
-        // Folder doesn't exist, create it
-        await client.send('MKD ' + submissionId);
-        await client.cd(submissionId);
+        console.error('Failed to enter directory:', error);
+        throw error; // Only throw if we can't enter the directory
       }
 
-      // Convert file to buffer and create a readable stream
+      // Convert file to buffer and create a stream
       const arrayBuffer = await file.arrayBuffer();
       const buffer = Buffer.from(arrayBuffer);
       
-      // Create a readable stream from the buffer
-      const { Readable } = await import('stream');
-      const stream = Readable.from(buffer);
-
-      // Upload the file using the stream
+      // Create a stream from buffer using Node's built-in stream constructor
+      const { Readable } = require('stream');
+      const stream = new Readable();
+      stream.push(buffer);
+      stream.push(null);  // Signal the end of the stream
+      
+      // Upload using the stream
       await client.uploadFrom(stream, file.name);
       
 
