@@ -573,7 +573,7 @@ export function HomeContent() {
               Why Free?
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            We’re confident in our craftsmanship. When you see our design, you’ll know you’re in good hands. Some choose to hire us. Some don’t. Either way, the design is yours to keep.
+              We’re confident in our craftsmanship. When you see our design, you’ll know you’re in good hands. <span className="text-sky-600 font-medium">Most people who receive the free design choose to hire us to do the remodeling.</span> Either way, it is yours to keep.
             </p>
           </div>
 
@@ -913,7 +913,7 @@ export function HomeContent() {
                   </svg>
                 </div>
                 <h3 className="text-xl font-bold text-black mb-2">Upload photos and inspiration</h3>
-                <p className="text-gray-600">We’ll email you a Google Drive link so you can upload pictures and ideas.</p>
+                <p className="text-gray-600">You will get redirected to a page so you can upload pictures and ideas.</p>
               </div>
               <div className="bg-white border border-gray-300 rounded-xl p-8 text-center">
                 <div className="w-16 h-16 bg-gray-700 rounded-full flex items-center justify-center mx-auto mb-4">
