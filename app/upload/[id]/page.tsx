@@ -41,9 +41,9 @@ async function getExistingFiles(submissionId: string): Promise<ExistingFile[]> {
     try {
       await client.cd(submissionId);
     } catch (error) {
-      // Folder doesn't exist, create it
-      await client.ensureDir(submissionId);
-      await client.cd(submissionId);
+      // Folder doesn't exist, just return empty array
+      // The folder will be created when the first file is uploaded
+      return existingFiles;
     }
 
     // Get current directory after navigation
