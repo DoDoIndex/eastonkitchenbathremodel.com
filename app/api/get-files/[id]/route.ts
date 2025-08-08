@@ -30,9 +30,10 @@ async function isValidJotformSubmission(submissionId: string): Promise<boolean> 
 
 export async function GET(
   request: NextRequest,
-  context: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
-  const submissionId = context?.params?.id;
+  const { id } = await params;
+  const submissionId = id;
   if (!submissionId) {
     return NextResponse.json({ error: 'Submission ID is required' }, { status: 400 });
   }

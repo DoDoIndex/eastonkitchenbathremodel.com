@@ -1,4 +1,5 @@
 import UploadContent from './UploadContent';
+import { notFound } from 'next/navigation';
 
 interface UploadPageProps {
   params: Promise<{
@@ -23,10 +24,16 @@ async function getExistingNotes(submissionId: string): Promise<string> {
     );
 
     if (!response.ok) {
-      return '';
+      notFound();
     }
 
     const jotformResult = await response.json();
+    
+    // Check if the response indicates a valid submission
+    if (!jotformResult.content) {
+      notFound();
+    }
+    
     const submissionData = jotformResult.content;
     
     // Extract notes from field 20
@@ -44,23 +51,19 @@ async function getExistingNotes(submissionId: string): Promise<string> {
     return notes || '';
     
   } catch (error) {
-    return '';
+    throw error; // Re-throw the error instead of returning empty string
   }
 }
 
 export default async function UploadPage({ params }: UploadPageProps) {
   const { id } = await params;
   
-  let existingNotes: string = '';
-  
   try {
     // Fetch notes only on the server; files are loaded on the client
     const notesResult = await getExistingNotes(id);
-    existingNotes = notesResult;
+    return <UploadContent submissionId={id} initialNotes={notesResult} />;
   } catch (error) {
-    // Continue with empty array/string if fetching fails
-    existingNotes = '';
+    // If JotForm submission is not found, show 404 page
+    notFound();
   }
-  
-  return <UploadContent submissionId={id} initialNotes={existingNotes} />;
 }
