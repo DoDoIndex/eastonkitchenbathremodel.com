@@ -319,7 +319,7 @@ export default function UploadContent({ submissionId, initialNotes }: UploadCont
               <p>
                 Upload photos of your <span className="text-black font-semibold">current bathroom or kitchen</span>, include <span className="text-black font-semibold">floorplans</span> if available, and add any <span className="text-black font-semibold">Pinterest inspiration</span> you love.
               </p>
-              <p className="text-sm text-gray-500 mt-4">
+              <p className="text-lg font-semibold text-red-500 mt-4">
                 You can come back and update these anytime using this link.
               </p>
             </div>

@@ -552,7 +552,7 @@ export function HomeContent() {
                 <span className="text-sky-500 font-semibold mx-2 inline-block">real professionals.</span><span className="text-white inline-block">No AI, no commitment.</span>
               </h1>
               <p className="text-base md:text-xl text-gray-400 max-w-4xl lg:max-w-xl">
-                We <span className="text-white">normally charge $1,500</span> for this design package. But for the month of <span className="text-white">{new Date().toLocaleDateString('en-US', { month: 'long' })}, it's FREE</span>. You'll see exactly what your remodel will look like, <span className="text-white">before spending a penny</span>.
+                We <span className="text-white">normally charge $1,500</span> for this design offer. But for the month of <span className="text-white">{new Date().toLocaleDateString('en-US', { month: 'long' })}, it's FREE</span>. You'll see exactly what your remodel will look like, <span className="text-white">before spending a penny</span>.
               </p>
             </div>
             
