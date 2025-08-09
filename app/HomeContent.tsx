@@ -408,6 +408,7 @@ export function HomeContent() {
         
         // Google Ads conversion tracking
         if (typeof window !== 'undefined' && window.gtag) {
+          console.log('Google Ads conversion tracking');
           window.gtag('event', 'conversion', {
             'send_to': 'AW-16598983555/G1hqCOOok4oaEIPHges9',
             'value': 1.0,
