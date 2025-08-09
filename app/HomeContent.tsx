@@ -5,9 +5,11 @@ import { useState, useRef, useEffect } from 'react';
 // Google Ads conversion tracking
 declare global {
   interface Window {
-    gtag: (command: string, targetId: string, config?: any) => void;
+    gtag?: (...args: any[]) => void;
+    dataLayer?: any[];
   }
 }
+
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
 import Lightbox from 'yet-another-react-lightbox';
