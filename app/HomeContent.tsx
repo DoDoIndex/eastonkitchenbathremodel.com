@@ -652,7 +652,7 @@ export function HomeContent() {
               What We Specialize In
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Check out the two special services we offer. Yes, they're <span className="text-sky-600 font-medium">real photos</span> taken from projects we've done in Anaheim Hills or nearby Orange County areas.
+              Check out the two special services we offer. Yes, they're <span className="text-sky-600 font-medium">real photos</span> taken from real projects we've done in Orange County.
             </p>
           </div>
 
@@ -768,7 +768,7 @@ export function HomeContent() {
               What You Get
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              These are <span className="text-sky-600 font-medium">real samples</span> crafted by our designers. You'll get the same level of quality, care, and attention to detail in your own design.
+              These are <span className="text-sky-600 font-medium">recent 3D renderings</span> crafted by our designers. You'll get the same level of quality, care, and attention to detail in your own design.
             </p>
           </div>
 
