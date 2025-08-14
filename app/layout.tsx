@@ -23,7 +23,7 @@ const notoSerif = Noto_Serif({
 });
 
 export const metadata: Metadata = {
-  title: 'Anaheim Hills Contractor - Kitchen Remodeling, Bathroom Remodeling, Shower Remodeling | Renovation Contractor',
+  title: 'Easton Designs & Consultings - Kitchen Remodeling, Bathroom Remodeling, Shower Remodeling | Renovation Contractor',
   description: 'Expert kitchen and bathroom remodeling in Anaheim Hills & Orange County. Licensed contractor Travis delivers stunning transformations with 20+ years experience. Real photos, quality craftsmanship. Call (657) 888-0026',
 };
 
