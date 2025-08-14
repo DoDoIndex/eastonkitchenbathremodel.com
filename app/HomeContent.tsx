@@ -517,28 +517,17 @@ export function HomeContent() {
   return (
     <main className="min-h-screen" role="main">
       {/* Sticky Navbar */}
-      <nav className="fixed top-0 left-0 right-0 bg-black/90 backdrop-blur-md border-b border-gray-800 shadow-lg z-50">
+      <nav className="fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-md border-b border-gray-800 shadow-lg z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16 sm:h-20 lg:h-24">
+          <div className="flex justify-center items-center h-16 sm:h-20 lg:h-24 bg-white">
             {/* Logo */}
-            <div className="flex flex-col">
-              <div className="text-md sm:text-xl lg:text-3xl font-bold text-white tracking-tight font-serif">
-                Anaheim Hills Contractor
-              </div>
-              <div className="text-[11px] sm:text-sm lg:text-lg text-gray-300 italic font-medium tracking-wide font-sans">
-                by Easton Designs and Consulting
-              </div>
-            </div>
-            
-            {/* Phone Button */}
-            <div>
-              <a 
-                href="tel:6578880026"
-                className="bg-gradient-to-r from-sky-600 to-sky-700 text-white px-4 pt-1.5 pb-2 sm:px-6 sm:py-3 lg:px-8 lg:py-4 rounded-lg font-semibold hover:from-sky-700 hover:to-sky-800 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
-              >
-                <span className="text-sm sm:text-base lg:text-xl font-semibold">(657) 888-0026</span>
-              </a>
-            </div>
+            <Image 
+              src="/easton_logo.svg" 
+              alt="Logo" 
+              width={200} 
+              height={80} 
+              className="w-[200px] h-[80px] lg:w-[250px] lg:h-[100px]"
+            />
           </div>
         </div>
       </nav>
@@ -560,7 +549,7 @@ export function HomeContent() {
             </div>
             
             {/* Quote Form */}
-            <div className="w-full lg:w-3/5 flex justify-center pt-0 pb-12 lg:py-6 h-full">
+            <div className="w-full lg:w-3/5 flex justify-center pt-0 pb-12 md:py-6 h-full">
               <div className="w-full max-w-md">
                 <div className="bg-white rounded-xl shadow-lg p-6 border border-gray-100 min-h-[415px]">
                   <h3 className="text-2xl font-bold text-gray-800 mb-4">
