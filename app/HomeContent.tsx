@@ -827,7 +827,7 @@ export function HomeContent() {
             </div>
 
             {/* Image Slider - Right Side */}
-            <div className="relative min-h-[400px]">
+            <div className="relative aspect-[358/201] w-full">
               <div className="bg-gray-200 relative overflow-hidden rounded-xl shadow-lg h-full cursor-pointer">
                 <Swiper
                   modules={[Navigation, Pagination]}
@@ -860,8 +860,8 @@ export function HomeContent() {
                           alt={`3D Design example ${index + 1}`}
                           className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
                           loading="lazy"
-                          width={400}
-                          height={300}
+                          width={358}
+                          height={201}
                           sizes="(max-width: 768px) 100vw, 50vw"
                         />
                       </div>
