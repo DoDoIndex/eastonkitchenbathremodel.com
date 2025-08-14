@@ -1,5 +1,6 @@
 import { HomeContent } from './HomeContent';
 import type { Metadata } from 'next';
+import { Suspense } from 'react';
 
 export const revalidate = 3600; // Revalidate every hour
 
@@ -186,7 +187,9 @@ export default async function HomePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
-      <HomeContent />
+      <Suspense fallback={<div>Loading...</div>}>
+        <HomeContent />
+      </Suspense>
     </>
   );
 }
