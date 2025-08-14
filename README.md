@@ -1,435 +1,211 @@
-# Caden Tile Design System
+# Easton Kitchen & Bath Remodel Website
 
-A modern, accessible, and customizable design system built with React, TypeScript, and Tailwind CSS.
+A modern, responsive website for Easton Kitchen & Bath Remodel, built with Next.js 15, React 19, and TypeScript. This website showcases kitchen and bathroom remodeling services with advanced features like file uploads, quote submissions, and project management.
 
-## 🎨 Design System Showcase
+## 🏗️ Project Overview
 
-Visit `/design-system` to see all components in action. This page is not SEO crawlable.
+This is a professional contractor website that serves as both a marketing platform and a project management tool for Easton Kitchen & Bath Remodel. The site features a multi-step quote form, file upload system, and comprehensive project showcase.
 
-## 📦 Components
+## 🚀 Tech Stack
 
-### UI Components
+- **Framework**: Next.js 15 with App Router
+- **Frontend**: React 19, TypeScript
+- **Styling**: Tailwind CSS
+- **State Management**: Zustand
+- **UI Components**: Framer Motion, Swiper, React Icons
+- **Forms**: Custom multi-step forms with validation
+- **File Handling**: File upload/download with archiving
+- **Email**: Resend for email notifications
+- **External APIs**: JotForm integration, Google reCAPTCHA
+- **Deployment**: Optimized for production with image optimization
 
-All UI components are located in `app/components/ui/` and can be imported from the barrel file:
+## 📁 Project Structure
 
-```tsx
-import { Button, Input, Text, Card, Badge, Avatar, Dropdown } from '@/components/ui';
+```
+eastonkitchenbathremodel.com/
+├── app/                          # Next.js App Router
+│   ├── api/                     # API routes
+│   │   ├── delete-file/         # File deletion endpoint
+│   │   ├── get-files/           # File retrieval endpoint
+│   │   ├── save-notes/          # Notes saving endpoint
+│   │   ├── submit-quote/        # Quote submission endpoint
+│   │   ├── update-quote/        # Quote update endpoint
+│   │   └── upload-file/         # File upload endpoint
+│   ├── upload/                  # File upload pages
+│   │   └── [id]/               # Dynamic upload pages by ID
+│   ├── globals.css              # Global styles
+│   ├── HomeContent.tsx          # Main homepage component
+│   ├── layout.tsx               # Root layout
+│   └── page.tsx                 # Homepage
+├── public/                      # Static assets
+│   ├── 3D/                     # 3D rendering images
+│   ├── Bathroom/               # Bathroom project photos
+│   ├── Kitchen/                # Kitchen project photos
+│   ├── BeforeAfter/            # Before/after comparison photos
+│   └── team photos             # Team and contractor images
+├── next.config.ts              # Next.js configuration
+├── tailwind.config.ts          # Tailwind CSS configuration
+└── package.json                # Dependencies and scripts
 ```
 
-#### Button
-
-```tsx
-import { Button } from '@/components/ui';
-
-// Basic usage
-<Button>Click me</Button>
-
-// Variants
-<Button variant="primary">Primary</Button>
-<Button variant="secondary">Secondary</Button>
-<Button variant="success">Success</Button>
-<Button variant="danger">Danger</Button>
-<Button variant="warning">Warning</Button>
-<Button variant="info">Info</Button>
-
-// Sizes
-<Button size="sm">Small</Button>
-<Button size="md">Medium</Button>
-<Button size="lg">Large</Button>
-
-// States
-<Button isLoading>Loading</Button>
-<Button disabled>Disabled</Button>
-<Button fullWidth>Full Width</Button>
-
-// With icons
-<Button>
-  <FiPlus className="mr-2 h-4 w-4" />
-  Add Item
-</Button>
-```
-
-#### Input
-
-```tsx
-import { Input } from '@/components/ui';
-import { FiSearch, FiMail, FiEye, FiX } from 'react-icons/fi';
-
-// Basic usage
-<Input label="Username" placeholder="Enter username" />
-
-// With helper text
-<Input 
-  label="Email" 
-  placeholder="Enter email"
-  helperText="We'll never share your email"
-/>
-
-// With error
-<Input 
-  label="Password" 
-  type="password"
-  error="Password is required"
-/>
-
-// With icons
-<Input 
-  label="Search"
-  placeholder="Search..."
-  leftIcon={<FiSearch className="h-5 w-5 text-neutral-400" />}
-/>
-
-<Input 
-  label="Password"
-  type="password"
-  rightIcon={<FiEye className="h-5 w-5 text-neutral-400" />}
-  onRightIconClick={() => {/* handle click */}}
-/>
-
-// With both icons
-<Input 
-  label="Search with clear"
-  placeholder="Type to search..."
-  leftIcon={<FiSearch className="h-5 w-5 text-neutral-400" />}
-  rightIcon={<FiX className="h-5 w-5 text-neutral-400" />}
-  onRightIconClick={() => {/* handle clear */}}
-/>
-```
-
-#### Text
-
-```tsx
-import { Text } from '@/components/ui';
-
-// Variants
-<Text variant="h1">Heading 1</Text>
-<Text variant="h2">Heading 2</Text>
-<Text variant="h3">Heading 3</Text>
-<Text variant="body">Body text</Text>
-<Text variant="small">Small text</Text>
-
-// Sizes
-<Text size="xs">Extra Small</Text>
-<Text size="sm">Small</Text>
-<Text size="md">Medium</Text>
-<Text size="lg">Large</Text>
-<Text size="xl">Extra Large</Text>
-
-// Weights
-<Text weight="normal">Normal</Text>
-<Text weight="medium">Medium</Text>
-<Text weight="semibold">Semibold</Text>
-<Text weight="bold">Bold</Text>
-
-// Colors
-<Text color="primary">Primary</Text>
-<Text color="success">Success</Text>
-<Text color="danger">Danger</Text>
-<Text color="warning">Warning</Text>
-<Text color="info">Info</Text>
-```
-
-#### Badge
-
-```tsx
-import { Badge } from '@/components/ui';
-import { FiBell, FiCheck } from 'react-icons/fi';
-
-// Variants
-<Badge variant="primary">Primary</Badge>
-<Badge variant="secondary">Secondary</Badge>
-<Badge variant="success">Success</Badge>
-<Badge variant="danger">Danger</Badge>
-<Badge variant="warning">Warning</Badge>
-<Badge variant="info">Info</Badge>
-
-// Sizes
-<Badge size="sm">Small</Badge>
-<Badge size="md">Medium</Badge>
-<Badge size="lg">Large</Badge>
-
-// With icons
-<Badge>
-  <FiBell className="mr-1 h-4 w-4" />
-  Notifications
-</Badge>
-```
-
-#### Avatar
-
-```tsx
-import { Avatar } from '@/components/ui';
-
-// Sizes
-<Avatar size="xs" fallback="JD" />
-<Avatar size="sm" fallback="JD" />
-<Avatar size="md" fallback="JD" />
-<Avatar size="lg" fallback="JD" />
-<Avatar size="xl" fallback="JD" />
-
-// With fallback text
-<Avatar fallback="John Doe" />
-```
-
-#### Card
-
-```tsx
-import { Card } from '@/components/ui';
-
-// Variants
-<Card variant="elevated" padding="lg">
-  <h3>Elevated Card</h3>
-  <Text variant="body">With shadow</Text>
-</Card>
-
-<Card variant="outlined" padding="lg">
-  <h3>Outlined Card</h3>
-  <Text variant="body">With border</Text>
-</Card>
-
-<Card variant="filled" padding="lg">
-  <h3>Filled Card</h3>
-  <Text variant="body">With background</Text>
-</Card>
-```
-
-#### Dropdown
-
-```tsx
-import { Dropdown } from '@/components/ui';
-
-// Basic usage
-<Dropdown
-  trigger={<Button>Open Menu</Button>}
-  items={[
-    { label: 'Profile', onClick: () => {} },
-    { label: 'Settings', onClick: () => {} },
-    { label: 'Logout', onClick: () => {} },
-  ]}
-/>
-
-// With icons
-<Dropdown
-  trigger={<Button>Actions</Button>}
-  items={[
-    { label: 'Edit', icon: <FiEdit />, onClick: () => {} },
-    { label: 'Delete', icon: <FiTrash />, onClick: () => {} },
-  ]}
-/>
-```
-
-### Layout Components
-
-Layout components are located in `app/components/layout/` and can be imported from the barrel file:
-
-```tsx
-import { Layout, NavBar, Footer, CartSlider, Grid, Container, Pagination } from '@/components/layout';
-```
-
-#### Layout
-
-The main layout component that wraps the entire application:
-
-```tsx
-import { Layout } from '@/components/layout';
-
-export default function RootLayout({ children }) {
-  return (
-    <Layout>
-      {children}
-    </Layout>
-  );
-}
-```
-
-#### NavBar
-
-The main navigation bar component:
-
-```tsx
-import { NavBar } from '@/components/layout';
-
-// Basic usage
-<NavBar />
-
-// With custom items
-<NavBar
-  items={[
-    { label: 'Home', href: '/' },
-    { label: 'Products', href: '/products' },
-    { label: 'About', href: '/about' },
-  ]}
-/>
-```
-
-#### Footer
-
-The main footer component:
-
-```tsx
-import { Footer } from '@/components/layout';
-
-// Basic usage
-<Footer />
-```
-
-#### CartSlider
-
-A slide-out cart component:
-
-```tsx
-import { CartSlider } from '@/components/layout';
-
-// Basic usage
-<CartSlider
-  isOpen={isOpen}
-  onClose={() => setIsOpen(false)}
-  items={cartItems}
-/>
-```
-
-#### Grid
-
-A responsive grid component:
-
-```tsx
-import { Grid } from '@/components/layout';
-
-// Basic usage
-<Grid cols={3} gap={4}>
-  <div>Item 1</div>
-  <div>Item 2</div>
-  <div>Item 3</div>
-</Grid>
-
-// Responsive
-<Grid cols={{ sm: 1, md: 2, lg: 3 }} gap={4}>
-  <div>Item 1</div>
-  <div>Item 2</div>
-  <div>Item 3</div>
-</Grid>
-```
-
-#### Container
-
-A centered container component:
-
-```tsx
-import { Container } from '@/components/layout';
-
-// Basic usage
-<Container>
-  <div>Content</div>
-</Container>
-
-// With max width
-<Container maxWidth="lg">
-  <div>Content</div>
-</Container>
-```
-
-#### Pagination
-
-A pagination component:
-
-```tsx
-import { Pagination } from '@/components/layout';
-
-// Basic usage
-<Pagination
-  currentPage={1}
-  totalPages={10}
-  onPageChange={(page) => {}}
-/>
-
-// With custom items per page
-<Pagination
-  currentPage={1}
-  totalPages={10}
-  itemsPerPage={20}
-  onPageChange={(page) => {}}
-/>
-```
-
-## 🎯 Design Tokens
-
-The design system uses Tailwind CSS for styling. Key design tokens are defined in `tailwind.config.ts`:
-
-- Colors: primary, secondary, success, danger, warning, info
-- Spacing: xs, sm, md, lg, xl
-- Typography: font sizes, weights, line heights
-- Border radius
-- Shadows
-
-## 🎨 Icons
-
-The design system uses `react-icons/fi` (Feather Icons). Import icons directly:
-
-```tsx
-import { FiHome, FiUser, FiSettings } from 'react-icons/fi';
-```
+## 🎯 Key Features
+
+### 1. Multi-Step Quote Form (`HomeContent.tsx`)
+- **Step 1**: Contact information collection
+- **Step 2**: Project details and budget
+- **Step 3**: Form submission and redirect
+- Integrated with Google reCAPTCHA for spam protection
+- Real-time validation and error handling
+- Responsive design with smooth animations
+
+### 2. File Management System (`upload/[id]/`)
+- **File Upload**: Drag-and-drop file uploads with progress tracking
+- **File List**: Organized display of uploaded files with metadata
+- **Notes System**: Rich text editor for project notes
+- **File Operations**: Download, delete, and archive functionality
+- **JotForm Integration**: Seamless connection with external form system
+
+### 3. API Endpoints (`app/api/`)
+- **Quote Submission**: Handles form data and sends to JotForm
+- **File Operations**: Upload, download, and delete files
+- **Notes Management**: Save and retrieve project notes
+- **Security**: reCAPTCHA verification and input validation
+
+### 4. SEO Optimization (`page.tsx`)
+- **Meta Tags**: Comprehensive SEO metadata
+- **Structured Data**: Schema.org markup for local business
+- **Open Graph**: Social media optimization
+- **Performance**: Image optimization and caching
+
+## 🔧 How It Works
+
+### Quote Form Flow
+1. User fills out initial contact form
+2. Form validates input and shows project selection
+3. User selects project type and budget
+4. reCAPTCHA verification prevents spam
+5. Data is submitted to JotForm via API
+6. Email notifications are sent to staff
+7. User is redirected to file upload page
+
+### File Management Flow
+1. User accesses upload page with unique ID
+2. Files can be uploaded via drag-and-drop
+3. Files are stored and organized by project
+4. Notes can be added and saved
+5. Files can be downloaded individually or as archives
+6. All operations are logged and tracked
+
+### API Architecture
+- **RESTful Design**: Clean, predictable endpoints
+- **Error Handling**: Comprehensive error responses
+- **Validation**: Input sanitization and verification
+- **Integration**: External service connections (JotForm, Resend)
 
 ## 🚀 Getting Started
 
-1. Install pnpm if you haven't already:
+### Prerequisites
+- Node.js 18+ 
+- pnpm (recommended) or npm
+- Environment variables configured
 
+### Installation
 ```bash
-# Using npm
-npm install -g pnpm
+# Clone the repository
+git clone [repository-url]
+cd eastonkitchenbathremodel.com
 
-# Using curl (for Unix-based systems)
-curl -fsSL https://get.pnpm.io/install.sh | sh -
-
-# Using PowerShell (for Windows)
-iwr https://get.pnpm.io/install.ps1 -useb | iex
-```
-
-2. Install dependencies:
-
-```bash
+# Install dependencies
 pnpm install
-```
 
-3. Run the development server:
+# Set up environment variables
+cp .env.example .env.local
+# Edit .env.local with your API keys
 
-```bash
+# Run development server
 pnpm dev
 ```
 
-4. Visit `http://localhost:3000/design-system` to see the components in action.
+### Environment Variables
+```bash
+# JotForm Integration
+JOTFORM_API_KEY=your_jotform_api_key
+JOTFORM_QUOTE_FORM=your_form_id
 
-## 📦 Package Manager
+# Email Service
+RESEND_API_KEY=your_resend_api_key
 
-This project requires pnpm as the package manager. Using other package managers (npm, yarn, bun) is not supported and may lead to unexpected issues.
+# Security
+RECAPTCHA_SECRET=your_recaptcha_secret
 
-Benefits of pnpm:
-- Faster installation times
-- Disk space efficient
-- Strict dependency management
-- Better monorepo support
-- Consistent dependency resolution
-
-## 📝 Best Practices
-
-1. Always use the provided components instead of raw HTML elements
-2. Use the Text component for typography to maintain consistency
-3. Follow the color system defined in the design tokens
-4. Use icons from the Feather Icons set
-5. Maintain proper spacing using the defined spacing scale
-6. Ensure all interactive elements are accessible
-
-## 🔧 Customization
-
-Components can be customized using Tailwind classes:
-
-```tsx
-<Button className="bg-custom-color hover:bg-custom-color-dark">
-  Custom Button
-</Button>
+# Environment
+NEXT_PUBLIC_ENVIRONMENT=DEV|PROD
 ```
 
-## 📚 Additional Resources
+### Build and Deploy
+```bash
+# Build for production
+pnpm build
 
-- [Tailwind CSS Documentation](https://tailwindcss.com/docs)
-- [React Icons Documentation](https://react-icons.github.io/react-icons/)
-- [Feather Icons](https://feathericons.com/)
+# Start production server
+pnpm start
+
+# Lint code
+pnpm lint
+```
+
+## 🎨 Customization
+
+### Styling
+- **Tailwind CSS**: Utility-first CSS framework
+- **Custom Components**: Reusable UI components
+- **Responsive Design**: Mobile-first approach
+- **Animations**: Framer Motion for smooth interactions
+
+### Content Management
+- **Image Assets**: Organized in public folders
+- **Dynamic Content**: React components for easy updates
+- **SEO**: Meta tags and structured data
+- **Performance**: Image optimization and lazy loading
+
+## 🔒 Security Features
+
+- **reCAPTCHA**: Bot protection on forms
+- **Input Validation**: Server-side validation
+- **API Security**: Rate limiting and error handling
+- **File Upload**: Secure file handling and validation
+
+## 📱 Responsive Design
+
+- **Mobile-First**: Optimized for all device sizes
+- **Touch-Friendly**: Gesture support for mobile devices
+- **Performance**: Optimized images and lazy loading
+- **Accessibility**: ARIA labels and keyboard navigation
+
+## 🚀 Performance Optimizations
+
+- **Next.js 15**: Latest framework with App Router
+- **Image Optimization**: Automatic image optimization
+- **Code Splitting**: Automatic code splitting
+- **Caching**: Strategic caching strategies
+- **Bundle Analysis**: Optimized bundle sizes
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Test thoroughly
+5. Submit a pull request
+
+## 📄 License
+
+This project is proprietary software for Easton Kitchen & Bath Remodel.
+
+## 📞 Support
+
+For technical support or questions about the website, contact the development team.
+
+---
+
+**Built with ❤️ using Next.js, React, and TypeScript**
