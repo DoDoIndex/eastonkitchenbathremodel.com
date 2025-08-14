@@ -725,7 +725,7 @@ export function HomeContent() {
                   </button>
                   
                   {/* Custom Pagination */}
-                  <div className={`swiper-pagination-${index} absolute bottom-2 left-1/2 transform -translate-x-1/2 flex gap-1`}></div>
+                  <div className={`swiper-pagination-${index} absolute bottom-2 left-1/2 transform -translate-x-1/2 flex gap-1 hidden sm:flex`}></div>
                 </div>
                 <div className="p-8">
                   <h3 className="text-2xl font-semibold text-gray-900 mb-3">
@@ -889,7 +889,7 @@ export function HomeContent() {
                 </button>
                 
                 {/* Custom Pagination */}
-                <div className="swiper-pagination-whatyouget absolute bottom-2 left-1/2 transform -translate-x-1/2 flex gap-1"></div>
+                <div className="swiper-pagination-whatyouget absolute bottom-2 left-1/2 transform -translate-x-1/2 flex gap-1 hidden sm:flex"></div>
               </div>
             </div>
           </div>
