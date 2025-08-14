@@ -23,23 +23,23 @@ export const metadata: Metadata = {
   ],
       authors: [{ name: 'Travis - Easton Designs & Consultings' }],
   creator: 'Easton Designs and Consulting',
-  publisher: 'Anaheim Hills Contractor',
+  publisher: 'Easton Designs and Consulting',
   formatDetection: {
     email: false,
     address: false,
     telephone: false,
   },
   openGraph: {
-    title: 'Anaheim Hills Contractor - Expert Kitchen & Bathroom Remodeling',
+    title: 'Easton Designs and Consulting - Expert Kitchen & Bathroom Remodeling',
     description: 'Licensed contractor Travis transforms kitchens and bathrooms in Anaheim Hills & Orange County. 20+ years experience, real photos, quality craftsmanship.',
-    url: 'https://anaheimhillscontractor.com',
-    siteName: 'Anaheim Hills Contractor',
+    url: 'https://www.eastonkitchenbathremodel.com',
+    siteName: 'Easton Designs and Consulting',
     images: [
       {
-        url: '/travis-easton.webp',
-        width: 1200,
-        height: 630,
-        alt: 'Travis - Licensed Anaheim Hills Contractor',
+        url: '/Kitchen/8.jpg',
+        width: 2500,
+        height: 1667,
+        alt: 'Easton Designs and Consulting',
       },
     ],
     locale: 'en_US',
@@ -47,9 +47,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Anaheim Hills Contractor - Kitchen & Bathroom Remodeling',
+    title: 'Easton Designs and Consulting - Kitchen & Bathroom Remodeling',
     description: 'Expert remodeling services in Anaheim Hills & Orange County. Licensed CSLB 1121194.',
-    images: ['/travis-easton.webp'],
+    images: ['/Kitchen/8.jpg'],
   },
   robots: {
     index: true,
@@ -66,7 +66,7 @@ export const metadata: Metadata = {
     google: 'your-google-verification-code', // Replace with actual verification code
   },
   alternates: {
-    canonical: 'https://anaheimhillscontractor.com',
+    canonical: 'https://www.eastonkitchenbathremodel.com',
   },
   other: {
     'x-cache-tags': 'home,contractor,remodeling'
@@ -80,11 +80,11 @@ export default async function HomePage() {
     "@graph": [
       {
         "@type": "LocalBusiness",
-        "@id": "https://anaheimhillscontractor.com/#business",
-        "name": "Anaheim Hills Contractor",
-        "alternateName": "Travis - Anaheim Hills Contractor",
+        "@id": "https://www.eastonkitchenbathremodel.com/#business",
+        "name": "Easton Designs and Consulting",
+        "alternateName": "Travis - Easton Designs and Consulting",
         "description": "Licensed general contractor specializing in kitchen and bathroom remodeling in Anaheim Hills and Orange County",
-        "url": "https://anaheimhillscontractor.com",
+        "url": "https://www.eastonkitchenbathremodel.com",
         "telephone": "(657) 888-0026",
         "priceRange": "$$",
         "address": {
@@ -131,19 +131,19 @@ export default async function HomePage() {
       },
       {
         "@type": "WebSite",
-        "@id": "https://anaheimhillscontractor.com/#website",
-        "url": "https://anaheimhillscontractor.com",
-        "name": "Anaheim Hills Contractor",
+        "@id": "https://www.eastonkitchenbathremodel.com/#website",
+        "url": "https://www.eastonkitchenbathremodel.com",
+        "name": "Easton Designs and Consulting",
         "description": "Expert kitchen and bathroom remodeling services in Anaheim Hills and Orange County",
         "publisher": {
-          "@id": "https://anaheimhillscontractor.com/#business"
+          "@id": "https://www.eastonkitchenbathremodel.com/#business"
         },
         "potentialAction": [
           {
             "@type": "SearchAction",
             "target": {
               "@type": "EntryPoint",
-              "urlTemplate": "https://anaheimhillscontractor.com/?s={search_term_string}"
+              "urlTemplate": "https://www.eastonkitchenbathremodel.com/?s={search_term_string}"
             },
             "query-input": "required name=search_term_string"
           }
@@ -151,11 +151,11 @@ export default async function HomePage() {
       },
       {
         "@type": "Service",
-        "@id": "https://anaheimhillscontractor.com/#kitchen-remodeling",
+        "@id": "https://www.eastonkitchenbathremodel.com/#kitchen-remodeling",
         "name": "Kitchen Remodeling",
         "description": "Complete kitchen renovations including cabinets, countertops, flooring, and appliances",
         "provider": {
-          "@id": "https://anaheimhillscontractor.com/#business"
+          "@id": "https://www.eastonkitchenbathremodel.com/#business"
         },
         "areaServed": [
           "Anaheim Hills",
@@ -165,11 +165,11 @@ export default async function HomePage() {
       },
       {
         "@type": "Service", 
-        "@id": "https://anaheimhillscontractor.com/#bathroom-remodeling",
+        "@id": "https://www.eastonkitchenbathremodel.com/#bathroom-remodeling",
         "name": "Bathroom Remodeling",
         "description": "Full bathroom renovations with modern fixtures, tile work, and plumbing upgrades",
         "provider": {
-          "@id": "https://anaheimhillscontractor.com/#business"
+          "@id": "https://www.eastonkitchenbathremodel.com/#business"
         },
         "areaServed": [
           "Anaheim Hills",

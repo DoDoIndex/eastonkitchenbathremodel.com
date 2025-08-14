@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
 
 // Google Ads conversion tracking
 declare global {
@@ -36,6 +37,7 @@ interface FormStepProps {
     budget: string;
     financing: string;
     source: string;
+    ad_source: string;
   };
   onInputChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
   onFirstSubmit: (e: React.FormEvent, source?: string) => void;
@@ -232,6 +234,7 @@ function FormStep({
 }
 
 export function HomeContent() {
+  const searchParams = useSearchParams();
   const [activeService, setActiveService] = useState(0);
 
   const services = [
@@ -263,7 +266,8 @@ export function HomeContent() {
     project: '',
     budget: '',
     financing: '',
-    source: ''
+    source: '',
+    ad_source: searchParams.get('ad_source') || ''
   });
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -281,6 +285,14 @@ export function HomeContent() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Update ad_source when URL parameters change
+  useEffect(() => {
+    const adSource = searchParams.get('ad_source');
+    if (adSource) {
+      setQuoteForm(prev => ({ ...prev, ad_source: adSource }));
+    }
+  }, [searchParams]);
 
   // Hardcoded shuffled photos array
   const shuffledPhotos = [
@@ -400,6 +412,7 @@ export function HomeContent() {
           project: '', // Empty for now
           budget: '', // Empty for now
           source: source || quoteForm.source || 'Main Form', // Use source parameter or fallback to form source
+          ad_source: quoteForm.ad_source,
           recaptchaToken: 'skip' // Skip reCAPTCHA
         }),
       });
@@ -485,7 +498,8 @@ export function HomeContent() {
       project: '',
       budget: '',
       financing: '',
-      source: ''
+      source: '',
+      ad_source: searchParams.get('ad_source') || ''
     });
     setFormStep(1);
     setSubmissionId(null);
