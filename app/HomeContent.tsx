@@ -846,12 +846,12 @@ export function HomeContent() {
                   }}
                   className="h-full"
                 >
-                  {Array.from({ length: 15 }, (_, i) => `/3D/3d-${(i + 1).toString().padStart(2, '0')}.png`).map((image, index) => (
+                  {Array.from({ length: 10 }, (_, i) => `/3D/${(i + 1).toString()}.jpg`).map((image, index) => (
                     <SwiperSlide key={index}>
                       <div 
                         className="w-full h-full cursor-pointer"
                         onClick={() => {
-                          const threeD3DImages = Array.from({ length: 15 }, (_, i) => `/3D/3d-${(i + 1).toString().padStart(2, '0')}.png`);
+                          const threeD3DImages = Array.from({ length: 10 }, (_, i) => `/3D/${(i + 1).toString()}.jpg`);
                           openLightbox(threeD3DImages, index);
                         }}
                       >
