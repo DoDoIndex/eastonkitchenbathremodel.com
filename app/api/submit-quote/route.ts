@@ -97,7 +97,7 @@ export async function POST(request: NextRequest) {
     await resend.emails.send({
       from: 'Anaheim Hills Contractor <hello@cadentile.com>',
       to: process.env.NEXT_PUBLIC_ENVIRONMENT === "PROD" ? ['hello@eastondesigns.com', 'an@breakproject.com', 'an@cadentile.com'] : ['an@breakproject.com', 'an@cadentile.com'],
-      subject: `PPC Bath Kitchen - ${name} - ${submissionId}`,
+      subject: `[PPC] ${name} - ${submissionId}`,
       html: `
         <h2>Contact Information</h2>
         <p style="font-size: 16px;">Name: <strong style="background-color: #FFFFC5;">${name}</strong></p>
