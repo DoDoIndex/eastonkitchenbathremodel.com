@@ -95,8 +95,8 @@ export async function POST(request: NextRequest) {
 
     // Send notification to staff
     await resend.emails.send({
-      from: 'Anaheim Hills Contractor <hello@cadentile.com>',
-      to: process.env.NEXT_PUBLIC_ENVIRONMENT === "PROD" ? ['hello@eastondesigns.com', 'an@breakproject.com', 'an@cadentile.com'] : ['an@breakproject.com', 'an@cadentile.com'],
+      from: 'PPC Ads <hello@cadentile.com>',
+      to: process.env.NEXT_PUBLIC_ENVIRONMENT === "PROD" ? ['dolores@eastondesigns.com', 'travis@eastondesigns.com', 'travis@cadentile.com', 'an@breakproject.com', 'an@cadentile.com'] : ['an@breakproject.com', 'an@cadentile.com'],
       subject: `[PPC] ${name} - ${submissionId}`,
       html: `
         <h2>Contact Information</h2>
