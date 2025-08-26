@@ -77,7 +77,37 @@ export async function POST(
       throw new Error('Failed to update JotForm submission');
     }
 
-    const jotformResult = await jotformResponse.json();
+    // Update the lead in the Sales CRM
+    try {
+      // Submit lead to Easton backend
+      const leadData = {
+        project_interest: project,
+        budget: budget,
+        finance_need: financing,
+        status: "Active"
+      };
+
+      const eastonResponse = await fetch(
+        `${process.env.EASTON_BACKEND_HOST}/api/v1/admin/leads/${submissionId}`,
+        {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${process.env.EASTON_BACKEND_ADMIN_API_KEY}`
+          },
+          body: JSON.stringify(leadData)
+        }
+      );
+
+      if (eastonResponse.ok) {
+        console.log('Lead updated in Easton backend successfully:', leadData);
+      } else {
+        console.error('Failed to update lead in Easton backend:', await eastonResponse.text());
+      }
+    } catch (eastonError) {
+      console.error('Error submitting lead to Easton backend:', eastonError);
+      // Don't fail the entire request if Easton submission fails
+    }
 
     // Send update email using Resend
     const resend = new Resend(process.env.RESEND_API_KEY);

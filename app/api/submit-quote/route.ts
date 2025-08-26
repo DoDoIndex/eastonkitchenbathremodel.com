@@ -90,6 +90,43 @@ export async function POST(request: NextRequest) {
       timestamp: new Date().toISOString()
     });
 
+    // Insert to Sales CRM
+    try {
+      // Submit lead to Easton backend
+      const leadData = {
+        lead_id: submissionId?.toString() || `quote_${Date.now()}`,
+        name: name,
+        email: email,
+        phone: phone,
+        click_source: source,
+        website_source: process.env.NEXT_PUBLIC_WEBSITE,
+        ad_source: ad_source || "Unknown",
+        status: "Active",
+        sales_rep: process.env.EASTON_BACKEND_DEFAULT_SALES_REP || "Default"
+      };
+
+      const eastonResponse = await fetch(
+        `${process.env.EASTON_BACKEND_HOST}/api/v1/admin/leads`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${process.env.EASTON_BACKEND_ADMIN_API_KEY}`
+          },
+          body: JSON.stringify(leadData)
+        }
+      );
+
+      if (eastonResponse.ok) {
+        console.log('Lead submitted to Easton backend successfully:', leadData);
+      } else {
+        console.error('Failed to submit lead to Easton backend:', await eastonResponse.text());
+      }
+    } catch (eastonError) {
+      console.error('Error submitting lead to Easton backend:', eastonError);
+      // Don't fail the entire request if Easton submission fails
+    }
+
     // Send email using Resend
     const resend = new Resend(process.env.RESEND_API_KEY);
 
