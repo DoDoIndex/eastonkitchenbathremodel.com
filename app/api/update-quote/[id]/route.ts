@@ -114,7 +114,7 @@ export async function POST(
 
     await resend.emails.send({
       from: 'PPC Ads <hello@cadentile.com>',
-      to: process.env.NEXT_PUBLIC_ENVIRONMENT === "PROD" ? ['dolores@eastondesigns.com', 'travis@eastondesigns.com', 'travis@cadentile.com', 'an@breakproject.com', 'an@cadentile.com'] : ['an@breakproject.com', 'an@cadentile.com'],
+      to: process.env.NEXT_PUBLIC_ENVIRONMENT === "PROD" ? ['dolores@eastondesigns.com', 'travis@eastondesigns.com', 'an@breakproject.com', 'an@cadentile.com'] : ['an@breakproject.com', 'an@cadentile.com'],
       subject: `[PPC] ${name} - ${submissionId}`,
       html: `
         <h2>Interest and Budget</h2>
