@@ -124,7 +124,7 @@ export async function POST(
         <p><em>Updated at ${new Date().toLocaleString('en-US', { timeZone: 'America/Los_Angeles' })}</em></p>
         
         <div style="margin-top: 20px;">
-          <a href="https://anaheimhillscontractor.com/upload/${submissionId}" 
+          <a href="https://eastonkitchenbathremodel.com/upload/${submissionId}" 
              style="display: inline-block; background-color: #0EA5E9; color: white; padding: 12px 24px; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 16px;">
             View Files
           </a>
