@@ -84,7 +84,6 @@ export async function POST(
         project_interest: project,
         budget: budget,
         finance_need: financing,
-        status: "Active"
       };
 
       const eastonResponse = await fetch(
