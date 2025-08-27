@@ -102,6 +102,7 @@ export async function POST(request: NextRequest) {
         website_source: process.env.NEXT_PUBLIC_WEBSITE,
         ad_source: ad_source || "Unknown",
         status: "New",
+        channel: 'Marketing',
         sales_rep: process.env.EASTON_BACKEND_DEFAULT_SALES_REP || "Default",
         text_notification: "true"
       };
